@@ -97,6 +97,7 @@ class AccountController extends Controller
 		// display the login form
 		$this->render('login',array('model'=>$model));
 	}
+        
 
 	/**
 	 * Logs out the current user and redirect to homepage.
@@ -106,4 +107,55 @@ class AccountController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        
+        /**
+         * Sign up 
+         */
+        public function actionSignUp()
+        {
+            
+            $model = new User();
+            $model->setScenario('signup');
+            
+             // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model, 'user-form');
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+
+            if ($model->validate()) {
+                
+                $tempPassword = $model->password;
+                if($model->save())
+                {
+                    $login = new LoginForm;
+                    $login->email = $model->email;
+                    $login->password = $tempPassword;
+                    
+                    if($login->login()) {
+                       $this->redirect(array('user/completeProfile'));
+                    }
+                }
+                
+            }
+            
+            }
+            
+            
+            $this->render('signup', array('model' => $model));
+        }
+        
+         /**
+         * Custom function allow validation of forms. Pass the model and the form id and then
+         * it will validate via ajax.
+         * @param type $model
+         * @param type $formId 
+         */
+        protected function performAjaxValidation($model, $formId) {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === $formId) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }
