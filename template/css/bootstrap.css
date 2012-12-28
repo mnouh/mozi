@@ -267,6 +267,11 @@ a:hover {
   *zoom: 1;
 }
 
+.row_header {
+  margin-left: 75px;
+  *zoom: 1;
+}
+
 .row:before,
 .row:after {
   display: table;
@@ -680,6 +685,14 @@ cite {
 
 a.muted:hover {
   color: #808080;
+}
+
+.bs-docs-social {
+  padding: 15px 0;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 .text-warning {
@@ -6007,8 +6020,9 @@ a.badge:hover {
 }
 
 .hero-unit {
-  padding: 60px;
-  margin-bottom: 30px;
+  padding: 0px;
+  margin-left: 10%;
+  margin-bottom: 10%px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
