@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Mozi',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -20,21 +20,24 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*
+		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'hello123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-		*/
+		
 	),
+    
+        'defaultController' => 'account',
 
 	// application components
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+                        'class' => 'WebUser',
 		),
 		// uncomment the following to enable URLs in path-format
 		/*
@@ -51,18 +54,18 @@ return array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
 		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+		
+                'db'=>array(
+			'connectionString' => 'mysql:host=ideareef.com;dbname=mozi_main',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'mozi',
+			'password' => 'team4625',
 			'charset' => 'utf8',
+                        'tablePrefix' => 'tbl_',
 		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+			'errorAction'=>'account/error',
 		),
 		'log'=>array(
 			'class'=>'CLogRouter',
