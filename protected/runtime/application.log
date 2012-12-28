@@ -39,3 +39,26 @@ Stack trace:
 REQUEST_URI=/~mnouh/mozi/index.php?r=site/login
 HTTP_REFERER=http://localhost/~mnouh/mozi/index.php
 ---
+2012/12/28 13:33:57 [error] [exception.CException] exception 'CException' with message 'Property "LoginForm.username" is not defined.' in /Users/mnouh/Sites/mozi/framework/base/CComponent.php:131
+Stack trace:
+#0 /Users/mnouh/Sites/mozi/framework/web/helpers/CHtml.php(2158): CComponent->__get('username')
+#1 /Users/mnouh/Sites/mozi/framework/web/helpers/CHtml.php(1887): CHtml::resolveValue(Object(LoginForm), 'username')
+#2 /Users/mnouh/Sites/mozi/framework/web/helpers/CHtml.php(1217): CHtml::activeInputField('text', Object(LoginForm), 'username', Array)
+#3 /Users/mnouh/Sites/mozi/framework/web/widgets/CActiveForm.php(658): CHtml::activeTextField(Object(LoginForm), 'username', Array)
+#4 /Users/mnouh/Sites/mozi/protected/views/site/login.php(29): CActiveForm->textField(Object(LoginForm), 'username')
+#5 /Users/mnouh/Sites/mozi/framework/web/CBaseController.php(127): require('/Users/mnouh/Si...')
+#6 /Users/mnouh/Sites/mozi/framework/web/CBaseController.php(96): CBaseController->renderInternal('/Users/mnouh/Si...', Array, true)
+#7 /Users/mnouh/Sites/mozi/framework/web/CController.php(870): CBaseController->renderFile('/Users/mnouh/Si...', Array, true)
+#8 /Users/mnouh/Sites/mozi/framework/web/CController.php(783): CController->renderPartial('login', Array, true)
+#9 /Users/mnouh/Sites/mozi/protected/controllers/SiteController.php(98): CController->render('login', Array)
+#10 /Users/mnouh/Sites/mozi/framework/web/actions/CInlineAction.php(50): SiteController->actionLogin()
+#11 /Users/mnouh/Sites/mozi/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#12 /Users/mnouh/Sites/mozi/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#13 /Users/mnouh/Sites/mozi/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(283): CController->run('login')
+#15 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(142): CWebApplication->runController('site/login')
+#16 /Users/mnouh/Sites/mozi/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#17 /Users/mnouh/Sites/mozi/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/~mnouh/mozi/index.php?r=site/login
+---
