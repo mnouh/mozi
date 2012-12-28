@@ -8,21 +8,26 @@ $this->breadcrumbs=array(
 	'Login',
 );
 ?>
-
-<h1>Login</h1>
-
-<p>Please fill out the following form with your login credentials:</p>
-
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
+<div class="form" style="text-align:center;">
+    <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
+            <p class="row"><input type="text" placeholder="E-mail or User Name"></p>
+            <p class="row"><input type="password" placeholder="Password"></p>
+            <p class="row"><a href="signup.html" class="btn btn-primary" style="margin-top: 10px; margin-right:10px;"><i class="icon-lock icon-white"></i> Log in</a>
+            
+             <a href="signup.html"><small>Reset Password</small></a></p>
+     
+        </div>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+
+
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
