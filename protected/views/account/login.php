@@ -1,14 +1,6 @@
-<?php
-/* @var $this SiteController */
-/* @var $model LoginForm */
-/* @var $form CActiveForm  */
-
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
-?>
-<div class="form" style="text-align:center; width:700px; margin-left:auto; margin-right:auto;">
+<div class="container">
+        <div class="row">
+            <div class="form" style="width:700px; margin-left:auto; margin-right:auto;">
     <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -29,21 +21,46 @@ $this->breadcrumbs=array(
     
     }
     ?>
+  <div class="colspan8 coloffset2">
+    <div class="page-header">
+      <h1>Sign in</h1>
+    </div>
+  </div>
+  <div class="colspan4 coloffset2">
+    <div style="margin:0;padding:0;display:inline"></div>
     
-    
-    
-            <div class="row"><?php echo $form->textField($model,'email', array('placeholder' => 'E-mail or User Name')); ?>
-            
-            </div>
-    
-            <div class="row"><?php echo $form->passwordField($model,'password', array('placeholder' => 'Password', 'autocomplete' => 'off')); ?>
-            </div>
-            <div class="row">
-                
-            <?php echo CHtml::submitButton('Log in', array('class' => 'btn btn-primary', 'style' => 'margin-top:10px; margin-right:10px;')); ?>
-                <br>
-             <a href="signup.html"><small>Forgot Your Password?</small></a></div>
-     
+
+      
+
+      <p class="input">
+        <label for="user_email" style="font-weight:bold;">Email</label>
+        <?php echo $form->textField($model,'email');?>
+      </p>
+
+      <p class="input">
+        <label for="user_password" style="font-weight:bold;">Password</label>
+        <?php echo $form->passwordField($model,'email');?>
+      </p>
+
+      <p id="login-button"><?php echo CHtml::submitButton('Log in', array('class' => 'btn btn-primary')); ?></p>
+      <p id="reset-pw"><a href="/users/password/new">Forgot your password?</a></p>
+  </div><!-- /colspan -->
+  <div class="colspan1">
+    <span class="form-signin-divider">or</span>
+  </div>
+  <div class="colspan2" style="margin-top:65px">
+    <p id="login-button"><button type="submit" class="btn">via Facebook</button></p>
+  </div><!-- /colspan -->
+
+  <div class="colspan8 coloffset2">
+    <hr>
+    <h3>Dont have an account?</h3>
+    <p>Mozi is quick and easy to use, if you need an account please sign up here.</p>
+    <p><?php echo CHtml::link('Signup', array('/account/signup'));?></p>
+  </div>
+
+</div><!-- /row -->
 <?php $this->endWidget(); ?>
 </div>
 
+      
