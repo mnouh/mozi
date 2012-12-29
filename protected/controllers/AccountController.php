@@ -146,6 +146,14 @@ class AccountController extends Controller
             $this->render('signup', array('model' => $model));
         }
         
+        public function actionRecover()
+        {
+            
+            
+            $this->render('recover');
+            
+        }
+        
          /**
          * Custom function allow validation of forms. Pass the model and the form id and then
          * it will validate via ajax.

@@ -18,11 +18,22 @@
             body 
             {
                 padding-top: 45px;
-                padding-bottom: 40px;
+                
             }
         </style>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" /> 
 	<!-- <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/form.css" /> -->
+        
+        <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+        
+        <?php
+        
+         $baseUrl = Yii::app()->baseUrl; 
+ $cs = Yii::app()->getClientScript();
+ $cs->registerScriptFile($baseUrl.'/js/bootstrap.js');
+
+        
+        ?>
         
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -38,8 +49,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="images/favicon.png" alt="mozi" width="23" height=
-            "23" ALIGN="MIDDLE"></a></a>
+          <a class="brand" href="#"><img src="images/favicon.png" alt="mozi" width="23" height="23" ALIGN="MIDDLE"/></a>
           <div class="nav-collapse collapse">
                <?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
@@ -67,21 +77,25 @@
         <h1><img src="images/mozi_logo.png" alt="Pulpit rock" width="200" height="150" style="position:relative; top: -21px" > log in</h1>
       </div>
       
-      <div id="space" style="padding-bottom:20px;">
-           &nbsp;
-        </div>
     
-    
-
-<div class="container" id="page">
-
-	
 
 	<?php echo $content; ?>
 
-	
 
-</div><!-- page -->
-
+    <div class="footer-push"></div>
+    
+    <div class="footer">
+  <div class="container">
+    <img src="images/favicon.png" alt="mozi" width="23" height="23" ALIGN="MIDDLE"/>
+    <p>
+      <a href="https://github.com/about">About us</a>
+      &middot;
+      <a href="/privacy">Privacy</a>
+      &middot;
+      <a href="/contact">Contact</a>
+    </p>
+    <p>&copy; 2012 MoziMe, Inc. All rights reserved.</p>
+  </div>
+</div>
 </body>
 </html>

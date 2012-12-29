@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 	'Login',
 );
 ?>
-<div class="form" style="text-align:center;">
+<div class="form" style="text-align:center; width:700px; margin-left:auto; margin-right:auto;">
     <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -16,43 +16,34 @@ $this->breadcrumbs=array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-            <p class="row"><input type="text" placeholder="E-mail or User Name"></p>
-            <p class="row"><input type="password" placeholder="Password"></p>
-            <p class="row"><a href="signup.html" class="btn btn-primary" style="margin-top: 10px; margin-right:10px;"><i class="icon-lock icon-white"></i> Log in</a>
+    <?php
+    
+    if($model->hasErrors()) {
+    ?>
+      
+      <div class="alert" style="text-align: left;">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  Wrong Username/Email and password combination.
+</div>  
+    <?php    
+    
+    }
+    ?>
+    
+    
+    
+            <div class="row"><?php echo $form->textField($model,'email', array('placeholder' => 'E-mail or User Name')); ?>
             
-             <a href="signup.html"><small>Reset Password</small></a></p>
+            </div>
+    
+            <div class="row"><?php echo $form->passwordField($model,'password', array('placeholder' => 'Password', 'autocomplete' => 'off')); ?>
+            </div>
+            <div class="row">
+                
+            <?php echo CHtml::submitButton('Log in', array('class' => 'btn btn-primary', 'style' => 'margin-top:10px; margin-right:10px;')); ?>
+                <br>
+             <a href="signup.html"><small>Forgot Your Password?</small></a></div>
      
-        </div>
-
-
-
-
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
-	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
-
 <?php $this->endWidget(); ?>
-</div><!-- form -->
+</div>
+

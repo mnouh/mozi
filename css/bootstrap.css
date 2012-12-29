@@ -741,7 +741,7 @@ h5,
 h6 {
   margin: 10px 0;
   font-family: inherit;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 20px;
   color: inherit;
   text-rendering: optimizelegibility;
@@ -761,11 +761,11 @@ h6 small {
 h1,
 h2,
 h3 {
-  line-height: 40px;
+  line-height: 1.1;
 }
 
 h1 {
-  font-size: 38.5px;
+  font-size: 30px;
 }
 
 h2 {
@@ -6076,3 +6076,12 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+.form-signin-divider{
+    display:block;margin:0 auto;font-size:20px;line-height:160px;color:#999;
+}
+
+
+.footer{position:relative;margin-top:60px;padding:40px 0;color:#9a9a9a;text-align:center;text-shadow:0 1px 0 #fff;background-color:#f5f5f5;border-top:1px solid #e5e5e5}.footer .mega-icon-invertocat{width:auto;height:auto;margin-bottom:20px;font-size:60px;color:#ccc}.footer a{font-weight:bold;color:#9a9a9a;padding:0 3px}
+
+.footer-push{height:80px;clear:both}
