@@ -74,7 +74,7 @@
     
     <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="bs-docs-social">
-        <h1><img src="images/mozi_logo.png" alt="Pulpit rock" width="200" height="150" style="position:relative; top: -21px" > log in</h1>
+        <h1><img src="images/mozi_logo.png" alt="Pulpit rock" width="200" height="150" style="position:relative; top: -21px"/> log in</h1>
       </div>
       
     
@@ -82,7 +82,6 @@
 	<?php echo $content; ?>
 
 
-    <div class="footer-push"></div>
     
     <div class="footer">
   <div class="container">

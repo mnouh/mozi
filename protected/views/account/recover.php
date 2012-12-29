@@ -17,7 +17,7 @@
 
       <p class="input">
         <label for="user_password" style="font-weight:bold;">Password</label>
-        <input id="user_password" name="user[password]" size="30" type="password" />
+        <input class="input-large" id="user_password" name="user[password]" size="30" type="password" />
       </p>
 
       <p id="login-button"><button type="submit" class="btn btn-primary">Sign in</button></p>
@@ -26,7 +26,7 @@
   <div class="colspan1">
     <span class="form-signin-divider">or</span>
   </div>
-  <div class="colspan4" style="margin-top:65px">
+  <div class="colspan3" style="margin-top:65px">
     <p id="login-button"><button type="submit" class="btn">via Facebook</button></p>
   </div><!-- /colspan -->
 
@@ -38,6 +38,7 @@
   </div>
 
 </div><!-- /row -->
-</div>
+
+      </div>
 
       
