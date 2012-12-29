@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Mozi: Twitter-based Payment System</title>
+    <title>Mozi: P2P Payment System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -17,6 +17,7 @@
       }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/docs.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -33,7 +34,7 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -41,134 +42,225 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="index.html"><img src="images/favicon_white.png" alt="mozi" width="23" height=
-            "23" ALIGN="MIDDLE"></a></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#">Search Places</a></li>
-              <li><a href="#about">For Business</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">How It Works</a></li>
-                  <li><a href="#">FAQ</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
+                <li> <a href="#"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
+            "30" ALIGN="MIDDLE"></a></li>
+            <li>
+                 <input style="position: absolute; top: 10px" type="text" class="input-xlarge search-query" placeholder="Search friends or payments...">
+               </li>
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
+             
+            
+                  
+                 <div style="float:right; padding-top: 3px" class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                   <img src="images/settingicon.png" alt="mozi" width="15" height="15"> Account
+                      <span class="caret"></span>
+                        </a>
+                     <ul class="dropdown-menu">
+                      <!-- log in -->
+                            </ul>
+                    </div>
+              <p style="float:right; padding-top: 12px; padding-right: 10px;" >Chris Paquette</p>
+              <div style="float:right; padding-top: 8px; padding-right: 10px;"><img src="images/userprofileimg.jpg" alt="mozi" width="30" height=
+            "30"></div>
+                  
+            
+            
+           </div>
+           
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row-fluid">
+  
+      
+       <div class="container-fluid">
+        <div class="row-fluid">
           <div class="span3 bs-docs-sidebar">
             <ul class="nav nav-list bs-docs-sidenav">
-              <li class="well nav-header">myMozi Interface</li>
-              <li class="active"><a href="#"><i class="icon-chevron-right"></i> Recent Transactions</a></li>
-              <li><a href="interface_places.html"><i class="icon-chevron-right"></i> Edit My #places</a></li>
+              <li class="nav-header">myMozi Interface</li>
+              <li class="active"><a href="interface.html"><i class="icon-chevron-right"></i> Dashboard</a></li>
+              <li><a href="interface_closed.html"><i class="icon-chevron-right"></i> View All Transactions</a></li>
+              <li><a href="interface_friends.html"><i class="icon-chevron-right"></i> View All Friends</a></li>
               <li><a href="interface_credit.html"><i class="icon-chevron-right"></i> Add/Delete Credit Card</a></li>
-              <li><a href="interface_account.html"><i class="icon-chevron-right"></i> Manage Account</a></li>
+               <li><a href="interface_bank.html"><i class="icon-chevron-right"></i> Add/Delete Bank Account</a></li>
+              <li><a href="interface_account.html"><i class="icon-chevron-right"></i> Manage Mozi Account</a></li>
               <li><a href="interface_help.html"><i class="icon-chevron-right"></i> Help</a></li>
             </ul>
-          </div><!--/.well -->
-          <div class="well span9">
-            <div class="row-fluid">
-            <h3>Christopher T. Paquette</h3></div>
-            <div class="row-fluid">
-            <h4 style="position:relative; top: -15px; right: 0px"><img src="images/twitterbird_blue.jpg" height=
-            "30" width="30"> irunthisblock2</h4></div>
-            <div class="row-fluid">
-              <div class="alert alert-error"><i class="icon-warning-sign"></i>    <strong>No credit card linked to this account!</strong> Fix by clicking <a href="#">here</a></div>.
-              <div class="alert alert-block" style="position:relative; top: -25px; right: 0px">
-               <button type="button" class="close" data-dismiss="alert">&times;</button><i class="icon-warning-sign"></i>   
-               <strong>No #home or #work location(s) specified.</strong> Please update your <strong>#places</strong> for orders <a href="#">here</a>.
-                </div>
-              <div class="alert alert-success" style="position:relative; top: -25px; right: 0px"><strong>Update(s) Successful!</strong> You've got a clean bill of health.</div>
+          </div>
+          
+            
+         <div id="space" style="padding-bottom:15px;">
+           &nbsp;  </div>
+      
+            
+      
+           
+          <div class="span5">
+              <div class="row">
+               <div class="span12">
+                    <h3>Payment Hub</h3>
+                 
+                        <div class="input-append">
+                     <button class="btn" type="button">Send</button>
+                     <button class="btn" type="button">Request</button>
+                     <input class="input-xlarge" id="appendedInputButtons" type="text" placeholder="Enter Mozi, @twitter name, e-mail, or phone # of user">
+                 
+                    </div>
+                
+                
+                        <textarea cols="86" rows="2" placeholder="$10.50 for ..."></textarea>
+             
+                    
+              
+                        <button class="btn btn-info" type="button">Pay</button>
+                  
+              </div>
+              </div>
+              
+            <div id="space" style="padding-bottom:15px;">
+           &nbsp;  </div>
+   
+            <div class="row">
+              <div class="span12">
+         
+            
               <h4><i class="icon-calendar"></i> Recent Transactions</h4>
               <table class="table table-hover">
                   <td><strong>#</strong></td>
-                  <td><strong>Date</strong></td>
-                  <td><strong>Merchant</strong></td>
-                  <td><strong>Card</strong></td>
+                  <td><strong>Time</strong></td>
+                  <td><strong>Friend</strong></td>
+                  <td><strong>Notes</strong></td>
                   <td><strong>Amount</strong></td>
                   <td><strong>Status</strong></td>
-                  <tr>
-                    <td>4</td>
-                    <td>Jan 3, 2013</td>
-                    <td>TOM & MARTYS BING @tomandmartys</td>
-                    <td>****3855</td>
-                    <td>-$10.26</td>
-                    <td>Pending</td>
+                  
+                  <tr class="warning">
+                    <td>5817</td>
+                    <td>3:32pm</td>
+                    <td>Chris Paquette <small>@irunthisblock2</small></td>
+                    <td>#xlargecombo</td>
+                    <td>$19.36</td>
+                    <td>Requested</td>
                   </tr>
                   <tr>
-                    <td>3</td>
-                    <td>Jan 3, 2013</td>
-                    <td>BREWED AWAKENINGS BING @brewedawakenings</td>
-                    <td>****3855</td>
+                    <td>5816</td>
+                    <td>12:11pm</td>
+                    <td>Mohamed Nouh <small>@mohamednouh</small></td>
+                    <td>French Toast</td>
                     <td>-$13.86</td>
-                    <td>Approved</td>
+                    <td>Paid</td>
                   </tr>
                   <tr>
-                    <td>2</td>
-                    <td>Jan 1, 2013</td>
-                    <td>RATHSKELTER BING @theratbing</td>
-                    <td>****3855</td>
-                    <td>-$36.69</td>
-                    <td>Approved</td>
+                    <td>5815</td>
+                    <td>7:28am</td>
+                    <td>Lucas Espinoza <small>@lespino</small></td>
+                    <td>#xlargecombo</td>
+                    <td>$19.36</td>
+                    <td>Received</td>
                   </tr>
                   <tr>
-                    <td>1</td>
+                    <td>5814</td>
                     <td>Jan 1, 2013</td>
-                    <td>BINGHAMTON UNVI.BOOKST @bubookstore</td>
-                    <td>****3855</td>
-                    <td>-$18.72</td>
-                    <td>Approved</td>
+                    <td>George Murphy <small>@gmurphy19</small></td>
+                    <td>CUSTOM</td>
+                    <td>$7.72</td>
+                    <td>Received</td>
                   </tr>
               </table>
-
-
+                    </div>
+             
+             </div>
+                </div>
+ 
+                  
+        
+                  
+                  <!--RIGHTHAND COLUMN-->
+                  
+                  <div class="span3">
+                  
+                  <div class="well span12">
+                      <div class="span4">
+                      <img src="images/userprofileimg.jpg" alt="mozi" width="100" height="100"></div>
+                      <div class="span8" style="padding-left: 6px">
+        
+                           <b>Chris Paquette</b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> ctpaquette
+                           
+                           <h3 style="margin-top: 1px; margin-bottom:0px;">$151.36 <a href="#"><small>cash out</small></a></h3>
+                       
+                    
+                       </div>
+                      </div>
+                  
+                  <div class="well span12">
+                    <h5 style="margin: 0px;">Friends on Mozi <small>(153)</small></h5>
+                    <legend></legend>
+                    
+                    <div class="row" style="padding-bottom: 10px; padding-left:40px;">
+                    
+                    <div class="span2">
+                      <img src="images/friend1.jpg" alt="mozi" width="50" height="50"></div>
+                    <div class="span5" style="padding-left: 0px">
+                           <b>Jack Hopkins</b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> jhopki103
+                    </div>
+                    <div class="span4">
+                        <a href="#">send money</a>
+                    </div>
+                    </div>
+                    
+                    
+                     <div class="row" style="padding-bottom: 10px; padding-left:40px;">
+                     <div class="span2">
+                      <img src="images/friend2.jpg" alt="mozi" width="50" height="50"></div>
+                    <div class="span5" style="padding-left: 0px">
+                           <b>Lucas Espinoza</b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> jhopki103
+                    </div>
+                    <div class="span4">
+                        <a href="#">send money</a>
+                    </div>
+                     </div>
+                    
+                     <div class="row" style="padding-bottom: 10px; padding-left:40px;">
+                     <div class="span2">
+                      <img src="images/friend3.jpg" alt="mozi" width="50" height="50"></div>
+                    <div class="span5" style="padding-left: 0px">
+                           <b>MJ Lee</b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> jhopki103
+                    </div>
+                    <div class="span4">
+                        <a href="#">send money</a>
+                    </div>
+                     </div>
+                    
+                     <div class="row" style="padding-bottom: 10px; padding-left:40px;">
+                     <div class="span2">
+                      <img src="images/friend4.jpg" alt="mozi" width="50" height="50"></div>
+                    <div class="span5" style="padding-left: 0px">
+                           <b>Erika Valdez</b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> jhopki103
+                    </div>
+                    <div class="span4">
+                        <a href="#">send money</a>
+                    </div>
+                     </div>
+                    
+                  </div>
+                  
+                  
+                  </div>
+                  
+        </div>
+              
+                
+                  
+              </div>
+                  
           </div>
-
-       </div>
-
-
+        </div>
          
-
-      <hr>
-
-      <footer>
-        <p>&copy; Mozi www.mozime.com 2012</p>
-      </footer>
-
-    </div><!--/.fluid-container-->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>
-
-  </body>
-</html>
+  
+          </div>
