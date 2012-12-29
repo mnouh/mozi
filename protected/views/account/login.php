@@ -1,6 +1,6 @@
 <div class="container">
         <div class="row">
-            <div class="form" style="width:700px; margin-left:auto; margin-right:auto;">
+            <div style="width:700px; margin-left:auto; margin-right:auto;">
     <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -39,7 +39,7 @@
 
       <p class="input">
         <label for="user_password" style="font-weight:bold;">Password</label>
-        <?php echo $form->passwordField($model,'email');?>
+        <?php echo $form->passwordField($model,'password');?>
       </p>
 
       <p id="login-button"><?php echo CHtml::submitButton('Log in', array('class' => 'btn btn-primary')); ?></p>
@@ -61,6 +61,13 @@
 
 </div><!-- /row -->
 <?php $this->endWidget(); ?>
+</div>
+    <div class="row">
+        &nbsp;
+    </div>
+    <div class="row">
+        &nbsp;
+    </div>
 </div>
 
       

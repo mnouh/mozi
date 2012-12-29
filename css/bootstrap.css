@@ -6085,3 +6085,17 @@ a.badge:hover {
 .footer{position:relative;margin-top:60px;padding:40px 0;color:#9a9a9a;text-align:center;text-shadow:0 1px 0 #fff;border-top:1px solid #e5e5e5}.footer .mega-icon-invertocat{width:auto;height:auto;margin-bottom:20px;font-size:60px;color:#ccc}.footer a{font-weight:bold;color:#9a9a9a;padding:0 3px}
 
 .footer-push{height:80px;clear:both}
+
+div.form .errorMessage
+{
+    
+        font: 13px/1.5 Helvetica Neue,Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+        font-size: 13px;
+        line-height: 16px;
+        padding-left: 18px;
+        background-repeat: no-repeat;
+        background-position: center left;
+	color: #C33;
+        display:inline;
+	/*font-size: 0.8em;*/
+}
