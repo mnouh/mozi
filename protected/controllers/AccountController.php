@@ -43,6 +43,18 @@ class AccountController extends Controller
             $this->render('about');
             
         }
+        
+        public function actionFaq()
+        {
+            
+            $this->render('faq');
+        }
+        
+        public function actionHowItWorks()
+        {
+            
+            $this->render('how');
+        }
 
 	/**
 	 * This is the action to handle external exceptions.
