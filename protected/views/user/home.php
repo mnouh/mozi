@@ -3,13 +3,13 @@
           <div class="span3 bs-docs-sidebar">
             <ul class="nav nav-list bs-docs-sidenav">
               <li class="nav-header">myMozi Interface</li>
-              <li class="active"><a href="interface.html"><i class="icon-chevron-right"></i> Dashboard</a></li>
-              <li><a href="interface_closed.html"><i class="icon-chevron-right"></i> View All Transactions</a></li>
-              <li><a href="interface_friends.html"><i class="icon-chevron-right"></i> View All Friends</a></li>
-              <li><a href="interface_credit.html"><i class="icon-chevron-right"></i> Add/Delete Credit Card</a></li>
-               <li><a href="interface_bank.html"><i class="icon-chevron-right"></i> Add/Delete Bank Account</a></li>
-              <li><a href="interface_account.html"><i class="icon-chevron-right"></i> Manage Mozi Account</a></li>
-              <li><a href="interface_help.html"><i class="icon-chevron-right"></i> Help</a></li>
+              <li class="active"><a href="<?php echo Yii::app()->createUrl('user/home');?>"><i class="icon-chevron-right"></i> Dashboard</a></li>
+              <li><a href="<?php echo Yii::app()->createUrl('transaction/index');?>"><i class="icon-chevron-right"></i> View All Transactions</a></li>
+              <li><a href="<?php echo Yii::app()->createUrl('user/friends');?>"><i class="icon-chevron-right"></i> View All Friends</a></li>
+              <li><a href="<?php echo Yii::app()->createUrl('user/payment');?>"><i class="icon-chevron-right"></i> Add/Delete Credit Card</a></li>
+               <li><a href="<?php echo Yii::app()->createUrl('user/bank');?>"><i class="icon-chevron-right"></i> Add/Delete Bank Account</a></li>
+              <li><a href="<?php echo Yii::app()->createUrl('user/account');?>"><i class="icon-chevron-right"></i> Manage Mozi Account</a></li>
+              <li><a href="<?php echo Yii::app()->createUrl('account/help');?>"><i class="icon-chevron-right"></i> Help</a></li>
             </ul>
           </div>
           
