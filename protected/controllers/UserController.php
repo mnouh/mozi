@@ -18,6 +18,32 @@ class UserController extends Controller
             $this->render('home', array('model' => $model));
             
         }
+        
+        public function actionFriends()
+        {
+            
+            $this->render('friends');
+        }
+        
+        public function actionPayment()
+        {
+            
+            $this->render('payment');
+        }
+        
+        public function actionBank()
+        {
+            
+            $this->render('bank');
+        }
+        
+        public function actionAccount()
+        {
+            
+            $this->render('account');
+        }
+        
+        
 
 	// Uncomment the following methods and override them if needed
 	/*
