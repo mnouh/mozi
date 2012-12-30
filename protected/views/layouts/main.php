@@ -56,8 +56,8 @@
             <ul class="nav">
                 <li> <a href="<?php echo Yii::app()->createUrl('account/index');?>"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
             "30" ALIGN="MIDDLE"></a></li>
-               <li><a style="padding-top: 15px" href="howitworks.html">How It Works</a></li>
-              <li><a style="padding-top: 15px" href="FAQ.html">FAQ & Fees</a></li>
+               <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/howitworks');?>">How it Works</a></li>
+              <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/faq');?>">FAQ</a></li>
               <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">About</a></li>
             </ul>
              
