@@ -2,6 +2,9 @@
 
 class UserController extends Controller
 {
+    
+    private $layout = 'privateHome';
+    
 	public function actionIndex()
 	{
 		$this->render('index');
