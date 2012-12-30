@@ -65,17 +65,39 @@
     <i class="icon-lock"></i> Log in
     <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu">
+  <div class="dropdown-menu">
+      
+      
+      <fieldset id="signin_menu">
+	<div class="arrow"></div>
+<?php				 
+  echo CHtml::beginForm(array('account/login'));
+  ?>
+				                 <div style="margin:0;padding:0;display:inline"></div>
+				                  <label for="username"><strong>Username or email</strong></label>
+						<?php echo CHtml::textField('LoginForm[email]', '',  array ('id' => 'email')); ?>		  
+								   <label for="password"><strong>Password</strong></label>
+                                                                   <?php echo CHtml::passwordField('LoginForm[password]', '', array ('id' => 'password')); ?>
+					              <p class="remember">
+					                <input class="btn" id="signin_submit" value="Sign in" tabindex="6" type="submit">
+					              </p>
+					              
+					              <p class="forgot"> <a href="<?php echo $this->createUrl('account/recovery'); ?>">Forgot your password?</a></p>
+          <?php echo CHtml::endForm();?>
+    </fieldset>
+      
+      
+      
     <!-- log in -->
-  </ul>
 </div>
-            </li>
+            
             
            </div>
            
           </div><!--/.nav-collapse -->
         </div>
       </div>
+    </div>
     
       
     
