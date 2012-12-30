@@ -82,7 +82,7 @@
               <div class="nav-collapse collapse" style="float:right;">
                   <ul class="nav">
                       <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Dash Board</a></li>
-                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Market Place</a></li>
+                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>"><img src="images/icon_notify.png" style="width: 15px"></a></li>
                   </ul>
               </div>
               <p style="float:right; padding-top: 15px; padding-right: 10px;" >
