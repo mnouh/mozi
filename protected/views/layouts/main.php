@@ -21,7 +21,8 @@
                 
             }
         </style>
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" /> 
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/docs.css" />
 	<!-- <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/form.css" /> -->
         
         <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
@@ -49,28 +50,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="images/favicon.png" alt="mozi" width="23" height="23" ALIGN="MIDDLE"/></a>
           <div class="nav-collapse collapse">
-               <?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/account/index')),
-				array('label'=>'About', 'url'=>array('/account/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/account/contact')),
-				array('label'=>'Login', 'url'=>array('/account/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/account/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			), 'htmlOptions' => array('class' => 'nav')
-		)); ?>
-                
-                
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
+            <ul class="nav">
+                <li> <a href="<?php echo Yii::app()->createUrl('account/index');?>"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
+            "30" ALIGN="MIDDLE"></a></li>
+               <li><a style="padding-top: 15px" href="howitworks.html">How It Works</a></li>
+              <li><a style="padding-top: 15px" href="FAQ.html">FAQ & Fees</a></li>
+              <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">About</a></li>
+            </ul>
+             
+            
+       <div style="float:right; padding-top: 3px" class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="icon-lock"></i> Log in
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- log in -->
+  </ul>
+</div>
+            </li>
+            
+           </div>
+           
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
     
     
       

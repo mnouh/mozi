@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "{{users}}".
  *
@@ -54,6 +53,7 @@ class User extends CActiveRecord
 			array('email, username, password, confirmPassword, firstName, lastName', 'required', 'message' => '&#10006; &nbsp; A {attribute} is required.', 'on' =>'signup'),
                         array('confirmPassword', 'compare', 'compareAttribute'=>'password', 'on' => 'signup'),
                         array('email', 'checkEmail', 'on' => 'signup'),
+                        array('username', 'checkUsername', 'on' => 'signup'),
 			array('email', 'email', 'on'=>'signup'),
                         array('profileUser', 'required', 'on' => 'changeUsername'),
                         array('profileUser', 'checkUserName', 'on' => 'changeUsername'),
@@ -67,8 +67,24 @@ class User extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, email, password, firstName, lastName, verified, lookup, joinedDate, city, state', 'safe', 'on'=>'search'),
+                     
 		);
 	}
+        /**
+         * Check if User already exists in the database.
+         * @param type $attribute
+         * @param type $params 
+         */
+        
+        public function checkEmail($attribute, $params) {
+            $user=$this->find('LOWER(email)=?',array(strtolower($this->email)));
+            	
+                if($user!=null) {
+                    $this->addError('email', '<b>&#10006;</b> &nbsp; This email already exists.');
+                    //$this->addError('confirmEmail', '<b>&#10006;</b> &nbsp; This email already exists.');
+    
+                }
+        }
 
 	/**
 	 * @return array relational rules.
@@ -106,37 +122,21 @@ class User extends CActiveRecord
 		);
 	}
         
-        /**
-         * Check if User already exists in the database.
-         * @param type $attribute
-         * @param type $params 
-         */
-        public function checkEmail($attribute, $params) {
-            
-            $user=$this->find('LOWER(email)=?',array(strtolower($this->email)));
-		
-                if($user!=null) {
-                    
-                    $this->addError('email', '<b>&#10006;</b> &nbsp; This email already exists.');
-                    //$this->addError('confirmEmail', '<b>&#10006;</b> &nbsp; This email already exists.');
-    
-                }
-        }
         
         /**
          * Check if User already exists in the database.
          * @param type $attribute
          * @param type $params 
          */
-        public function checkUserName($attribute, $params) {
+        public function checkUsername($attribute, $params) {
             
             
             if($this->username != $this->profileUser) {
-            $user=$this->find('LOWER(username)=?',array(strtolower($this->profileUser)));
+            $user=$this->find('LOWER(username)=?',array(strtolower($this->username)));
 		
                 if($user!=null) {
                     
-                    $this->addError('profileUser', '<b>&#10006;</b> &nbsp; This username already exists.');
+                    $this->addError('username', '<b>&#10006;</b> &nbsp; This username already exists.');
                 }
                 
             }

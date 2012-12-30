@@ -1,6 +1,7 @@
 <div class="container">
+        <div style="width:700px; margin-left:auto; margin-right:auto;">
         <div class="row">
-            <div style="width:700px; margin-left:auto; margin-right:auto;">
+            
     <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -26,6 +27,7 @@
       <h1>Sign in</h1>
     </div>
   </div>
+            </div>
   <div class="colspan4 coloffset2">
     <div style="margin:0;padding:0;display:inline"></div>
     
@@ -61,7 +63,7 @@
 
 </div><!-- /row -->
 <?php $this->endWidget(); ?>
-</div>
+
     <div class="row">
         &nbsp;
     </div>

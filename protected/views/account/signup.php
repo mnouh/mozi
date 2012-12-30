@@ -7,18 +7,14 @@
     </div>
     <div class="form" style="width:940px; margin-left: auto; margin-right:auto;">
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
+	'id'=>'signup-form',
+	'enableAjaxValidation'=>true,
+        'enableClientValidation'=>true,
+        'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
 
-<?php
-
-echo CHtml::errorSummary($model);
-
-?>
     
 <div class="row-fluid">
         <div class="span6">
