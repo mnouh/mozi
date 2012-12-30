@@ -44,6 +44,12 @@ class AccountController extends Controller
             
         }
         
+        public function actionHelp()
+        {
+            
+            $this->render('help');
+        }
+        
         public function actionFaq()
         {
             
