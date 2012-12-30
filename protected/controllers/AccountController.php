@@ -2,6 +2,7 @@
 
 class AccountController extends Controller
 {
+    
 	/**
 	 * Declares class-based actions.
 	 */
@@ -27,10 +28,18 @@ class AccountController extends Controller
 	 */
 	public function actionIndex()
 	{
+            $this->layout = 'indexPublic';
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index');
 	}
+        
+        public function actionAbout()
+        {
+            
+            $this->render('about');
+            
+        }
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -77,6 +86,7 @@ class AccountController extends Controller
 	 */
 	public function actionLogin()
 	{
+                
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -114,18 +124,20 @@ class AccountController extends Controller
          */
         public function actionSignUp()
         {
-            
+            $this->layout = 'main';
             $model = new User();
             $model->setScenario('signup');
             
              // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation($model, 'user-form');
+        $this->performAjaxValidation($model, 'signup-form');
+        
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
 
             if ($model->validate()) {
-                
+        
+        
                 $tempPassword = $model->password;
                 if($model->save())
                 {
@@ -134,10 +146,10 @@ class AccountController extends Controller
                     $login->password = $tempPassword;
                     
                     if($login->login()) {
-                       $this->redirect(array('user/completeProfile'));
+                       $this->redirect(array('/completeProfile'));
                     }
                 }
-                
+        
             }
             
             }
