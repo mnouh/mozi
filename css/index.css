@@ -2889,7 +2889,6 @@ table th[class*="span"],
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
   z-index: 1000;
   display: none;
   float: left;
@@ -6091,3 +6090,97 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+.footer{position:relative;margin-top:60px;padding:40px 0;color:#9a9a9a;text-align:center;text-shadow:0 1px 0 #fff;border-top:1px solid #e5e5e5}.footer .mega-icon-invertocat{width:auto;height:auto;margin-bottom:20px;font-size:60px;color:#ccc}.footer a{font-weight:bold;color:#9a9a9a;padding:0 3px}
+
+.footer-push{height:80px;clear:both}
+
+div.form .errorMessage
+{
+    
+        font: 13px/1.5 Helvetica Neue,Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+        font-size: 13px;
+        line-height: 16px;
+        padding-left: 18px;
+        background-repeat: no-repeat;
+        background-position: center left;
+	color: #C33;
+        display:inline;
+	/*font-size: 0.8em;*/
+}
+
+.dropdown-menu {
+border-radius:5px;
+-moz-border-radius:5px;
+-webkit-border-radius:5px;
+-khtml-border-radius:5px;
+  text-shadow:#fff 1px 1px 1px;
+  background-color:#fff;
+  -moz-box-shadow:inset 0 0 100px #D8F2F8; -webkit-box-shadow:inset 0 0 100px #D8F2F8; -khtml-box-shadow:inset 0 0 100px #D8F2F8; box-shadow:inset 0 0 100px #D8F2F8;
+  
+  position:absolute;
+  width:216px;
+  z-index:10;
+  border:1px solid #057FA7;
+  text-align:left;
+  padding:12px;
+  top: 35px; 
+  right: 0px; 
+  margin-top:52px;
+  margin-right: 0px;
+  margin-right: -1px;
+  color:#111;
+  font:12px Arial, sans-serif;
+}
+.dropdown-menu .arrow { background:url(../images/arrow-top.png) left top no-repeat; width:19px; height:10px; top:-10px; right:20px; position:absolute; }
+.dropdown-menu input[type=text], #signin_menu input[type=password] {
+  display:block;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border:1px solid #949898;
+  font-size:13px;
+  margin:0 0 5px;
+  padding:5px;
+  width:203px;
+  margin-top:4px; margin-bottom:0px;
+}
+.dropdown-menu p {
+  margin:0;
+  font:12px Arial, sans-serif;
+}
+.dropdown-menu label.password { margin-top:4px; }
+
+.formError  { font-size:14px; color:#FF0000; text-align:center; width:365px; margin:auto; margin-top:0px; }
+
+
+.dropdown-menu a {
+  color:#000; font-size:11px;
+}
+.dropdown-menu label {
+  font-weight:normal;
+}
+.dropdown-menu p.remember {
+  padding:10px 0;
+  font-size:12px;
+}
+.dropdown-menu p.forgot, #signin_menu p.forgot-username, #signin_menu p.complete {
+  clear:both;
+  margin:5px 0;
+  font-size:09px;
+}
+.dropdown-menu p a {
+  color:#111; font-weight:bold;
+}
+.dropdown-menu {
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  
+  border:1px solid #035D7F;
+  
+  padding:4px 10px 5px;
+  font-size:11px;
+  margin:5px 0 0 0;
+  font-weight:bold;
+  font-size:12px;
+}
+#signin_menu .arrow { background:url(../images/arrow-top.png) left top no-repeat; width:19px; height:10px; top:-10px; right:20px; position:absolute; }
