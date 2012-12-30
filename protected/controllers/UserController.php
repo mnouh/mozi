@@ -6,6 +6,18 @@ class UserController extends Controller
 	{
 		$this->render('index');
 	}
+        
+        public function actionHome()
+        {
+            
+            $this->layout = 'privateHome';
+            $model = User::model()->findByPk(Yii::app()->user->id);
+            
+            
+            
+            $this->render('home', array('model' => $model));
+            
+        }
 
 	// Uncomment the following methods and override them if needed
 	/*

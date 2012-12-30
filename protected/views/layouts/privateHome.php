@@ -44,6 +44,8 @@
 
 <body>
     
+    
+    
     <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -54,57 +56,16 @@
           </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-                <li> <a href="<?php echo Yii::app()->createUrl('account/index');?>"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
+                <li> <a href="#"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
             "30" ALIGN="MIDDLE"></a></li>
-               <li><a style="padding-top: 15px" href="howitworks.html">How It Works</a></li>
-              <li><a style="padding-top: 15px" href="FAQ.html">FAQ & Fees</a></li>
-              <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">About</a></li>
+            <li>
+                 <input style="position: absolute; top: 10px" type="text" class="input-xlarge search-query" placeholder="Search friends or payments...">
+               </li>
             </ul>
              
-  <?php
-  
-  if(Yii::app()->user->isGuest) {
-  
-  ?>
-       <div style="float:right; padding-top: 3px" class="btn-group">
-  <a class="btn dropdown-toggle" href="javascript:toggle1();">
-    <i class="icon-lock"></i> Log in
-    <span class="caret"></span>
-  </a>
-  
-      
-      
-      <fieldset id="signin_menu" style="display:none;">
-	<div class="arrow"></div>
-<?php				 
-  echo CHtml::beginForm(array('account/login'));
-  ?>
-				                 <div style="margin:0;padding:0;display:inline"></div>
-				                  <label for="username"><strong>Username or email</strong></label>
-						<?php echo CHtml::textField('LoginForm[email]', '',  array ('id' => 'email')); ?>		  
-								   <label for="password"><strong>Password</strong></label>
-                                                                   <?php echo CHtml::passwordField('LoginForm[password]', '', array ('id' => 'password')); ?>
-					              <p class="remember">
-					                <input class="btn" id="signin_submit" value="Sign in" tabindex="6" type="submit">
-					              </p>
-					              
-					              <p class="forgot"> <a href="<?php echo $this->createUrl('account/recovery'); ?>">Forgot your password?</a></p>
-          <?php echo CHtml::endForm();?>
-    </fieldset>
-      
-      
-      
-    <!-- log in -->
             
-            
-           </div>
-              <?php
-              
-  }
-  else {
-              ?>
-              
-              <div style="float:right; padding-top: 3px" class="btn-group">
+                  
+                 <div style="float:right; padding-top: 3px" class="btn-group">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     <i class="icon-user"></i> Account
     <span class="caret"></span>
@@ -120,20 +81,28 @@
               </div>
               <div class="nav-collapse collapse" style="float:right;">
                   <ul class="nav">
-                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('user/home');?>">Dash Board</a></li>
+                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Dash Board</a></li>
                       <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Market Place</a></li>
                   </ul>
               </div>
-              <?php
-  }
-              ?>
+              <p style="float:right; padding-top: 15px; padding-right: 10px;" >
+                  <?php
+              $model = User::model()->findByPk(Yii::app()->user->id);
+              echo $model->firstName .' '.$model->lastName;
+                  ?>
+              </p>
+              <div style="float:right; padding-top: 8px; padding-right: 10px;"><img src="images/userprofileimg.jpg" alt="mozi" width="30" height=
+            "30"></div>
+                  
+            
+            
+           </div>
            
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
     
-      
+ 
     
 
 	<?php echo $content; ?>

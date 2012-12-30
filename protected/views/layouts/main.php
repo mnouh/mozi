@@ -23,6 +23,7 @@
         </style>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/docs.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/dropdown.css" />
 	<!-- <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/form.css" /> -->
         
         <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
@@ -32,6 +33,7 @@
          $baseUrl = Yii::app()->baseUrl; 
  $cs = Yii::app()->getClientScript();
  $cs->registerScriptFile($baseUrl.'/js/bootstrap.js');
+ $cs->registerScriptFile($baseUrl.'/js/inner.js');
 
         
         ?>
@@ -61,13 +63,27 @@
              
             
        <div style="float:right; padding-top: 3px" class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+  <a class="btn dropdown-toggle" href="javascript: toggle1()">
     <i class="icon-lock"></i> Log in
     <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu">
-    <!-- log in -->
-  </ul>
+ <fieldset id="signin_menu" style="display:none;">
+	<div class="arrow"></div>
+<?php				 
+  echo CHtml::beginForm(array('account/login'));
+  ?>
+				                 <div style="margin:0;padding:0;display:inline"></div>
+				                  <label for="username"><strong>Username or email</strong></label>
+						<?php echo CHtml::textField('LoginForm[email]', '',  array ('id' => 'email')); ?>		  
+								   <label for="password"><strong>Password</strong></label>
+                                                                   <?php echo CHtml::passwordField('LoginForm[password]', '', array ('id' => 'password')); ?>
+					              <p class="remember">
+					                <input class="btn" id="signin_submit" value="Sign in" tabindex="6" type="submit">
+					              </p>
+					              
+					              <p class="forgot"> <a href="<?php echo $this->createUrl('account/recovery'); ?>">Forgot your password?</a></p>
+          <?php echo CHtml::endForm();?>
+    </fieldset>
 </div>
             </li>
             
