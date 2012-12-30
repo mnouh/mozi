@@ -3,7 +3,7 @@
 class UserController extends Controller
 {
     
-    private $layout = 'privateHome';
+    public $layout = 'privateHome';
     
 	public function actionIndex()
 	{
