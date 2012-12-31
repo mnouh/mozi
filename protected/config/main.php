@@ -57,7 +57,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
                 'db'=>array(
-			'connectionString' => 'mysql:host=ideareef.com;dbname=mozi_main',
+			'connectionString' => 'mysql:host=mozime.com;dbname=mozi_main',
 			'emulatePrepare' => true,
 			'username' => 'mozi',
 			'password' => 'team4625',
