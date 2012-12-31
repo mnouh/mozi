@@ -285,41 +285,50 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                         idReceiver=transaction[1]==senderInfo[0]
                         trans_id=transaction[0]
 
-                        if validTrans==True:
-                            if idReceiver==True:
-                                payAmount=transaction[4]
-                                payAmount=payAmount*1.029+.30
-                                payAmount=math.ceil(payAmount*100)/100
-                                print payAmount
+                        if validTrans==True: #check for reply (validates tweet to initiated tweet
+                            if idReceiver==True:  #check for recipient
+                                if transaction[10]==0: #check for pending, hasn't already been accepted
+                                        
+                                    payAmount=transaction[4]
+                                    payAmount=payAmount*1.029+.30
+                                    payAmount=math.ceil(payAmount*100)/100
+                                    print payAmount
 
 
-                                ##USE TO DETERMINE CORRECT ACCOUNT or implement system for default payment found within linkedCreditCard
-                                #senderPayData=payDatabase()
-                                #creditInfo=senderPayData.linkedCreditCard(payerInfo[0]) #moziID
-                                ###!!!This process will continue once our flow is correct, assume now default selected we search by e-mail on balanced
-                                
+                                    ##USE TO DETERMINE CORRECT ACCOUNT or implement system for default payment found within linkedCreditCard
+                                    #senderPayData=payDatabase()
+                                    #creditInfo=senderPayData.linkedCreditCard(payerInfo[0]) #moziID
+                                    ###!!!This process will continue once our flow is correct, assume now default selected we search by e-mail on balanced
+                                    
 
-                                #initate transaction from buyer
-                                payComments="not available yet"
-                                amount_in_cents = int(float("%0.2f" % (float(payAmount)*100))) # payment USD
-                                buyer = balanced.Account.query.filter(email_address=payerInfo[1])[0]
-                                debit = buyer.debit(int(amount_in_cents), appears_on_statement_as='MOZI TWITTER PURCHASE',description=payComments)
+                                    #initate transaction from buyer
+                                    payComments="not available yet"
+                                    amount_in_cents = int(float("%0.2f" % (float(payAmount)*100))) # payment USD
+                                    buyer = balanced.Account.query.filter(email_address=payerInfo[1])[0]
+                                    debit = buyer.debit(int(amount_in_cents), appears_on_statement_as='MOZI TWITTER PURCHASE',description=payComments)
 
-                                changeStatus=payDatabase()
-                                changeStatus.acceptTweetTransaction(replyTweetID)
+                                    changeStatus=payDatabase()
+                                    changeStatus.acceptTweetTransaction(replyTweetID)
 
 
-                                #push notification to mozime.com
-                                encode_data= {"message":"new transaction accepted","transactionId":trans_id,"type":"2"}
-                                encode_data= json.dumps(encode_data)
-                                p=pusher.Pusher()
-                                p['private_'+str(payerInfo[0])].trigger('my_event', encode_data)
+                                    #push notification to mozime.com
+                                    encode_data= {"message":"new transaction accepted","transactionId":trans_id,"type":"2"}
+                                    encode_data= json.dumps(encode_data)
+                                    p=pusher.Pusher()
+                                    p['private_'+str(payerInfo[0])].trigger('my_event', encode_data)
 
-                                submess="@%s @%s, payment of "%(senderName,payerName)
-                                message=submess+str(payAmount)+" has been accepted!"
-                                api.update_status(message)
+        
+                                    submess="@%s @%s, payment of "%(senderName,payerName)
+                                    message=submess+str(payAmount)+" has been accepted!"
+                                    api.update_status(message)
 
-                                print "payment accepted!"
+                                    print "payment accepted!"
+
+                                else:
+                                    now=time.strftime("%b %d %H:%M:%S")
+                                    submess="@%s"%(senderName)
+                                    message=submess+", you have already accepted that payment on "+now+"!"
+                                    api.update_status(message)
 
 
         except KeyError:
