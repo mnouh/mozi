@@ -2,6 +2,7 @@ import os,glob
 import tweetstream, random
 import MySQLdb as mdb
 import pusher, json
+import logging
 
 ##initialize outgoing tweets 
 import sys
@@ -30,6 +31,14 @@ key_secret = '5340a9843f6b11e28447026ba7cd33d0'
 balanced.configure(key_secret)
 
 totalPaymentAmount=0.0
+
+#initiate logger for debug and error
+logger = logging.getLogger('mozi_SQL_paymentsV01')
+hdlr = logging.FileHandler('moziTwitterPayments.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr) 
+logger.setLevel(logging.WARNING) #ignoring debug, info
 
 
 class readDatabase():
@@ -159,19 +168,17 @@ print "Mozi Demonstration"
 
 databaseRead=readDatabase()
 userData=databaseRead.pullTwitterHandles()
+logger.info("0-0 Pulling Twitter Handles from Database")
 
 users=[]
+logger.info("0-1 Indentifying Twitter IDs from Handles")
 for user in range(len(userData)):
-    print userData[user]
     userSearch=api.get_user(userData[user])
     userID=userSearch.id
     users.append(userID)
 
-print "Scanning "+str(len(users))+" Mozi User Twitter Handles"
-print users
-
-
 with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
+    logger.info("0-2 Listening for Tweets from Mozi Users")
     for tweet in stream:
         try:
             tweetID=tweet[u'id']
@@ -246,9 +253,11 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
                             payComments="not yet defined"
 
+
                             #record transaction on mozi
                             payData=payDatabase()
                             trans=payData.newTransaction(senderInfo[0],recipientInfo[0],payAmountDeclared,payComments,tweetID,0)
+                            print 'transaction recorded'
                             trans_id=trans[0][0]
                             pusher.app_id=mozi_app_id
                             pusher.key=mozi_api_key
@@ -319,7 +328,8 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
         
                                     submess="@%s @%s, payment of "%(senderName,payerName)
-                                    message=submess+str(payAmount)+" has been accepted!"
+                                    now=time.strftime("%b %d %H:%M:%S")
+                                    message=" has been accepted at "+str(now)+"."
                                     api.update_status(message)
 
                                     print "payment accepted!"
