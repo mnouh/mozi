@@ -39,6 +39,7 @@ class AccountController extends Controller
         
         public function actionAbout()
         {
+            $this->layout = 'indexPublic';
             
             $this->render('about');
             

@@ -118,12 +118,18 @@
 
     </ul>
               </div>
+              <?php
+              $model = User::model()->findByPk(Yii::app()->user->id);
+                  ?>
               <div class="nav-collapse collapse" style="float:right;">
                   <ul class="nav">
+                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('user/home');?>"><?php echo $model->firstName .' '.$model->lastName;?></a></li>
                       <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('user/home');?>">Dash Board</a></li>
                       <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Market Place</a></li>
                   </ul>
               </div>
+              <div style="float:right; padding-top: 8px; padding-right: 10px;"><img src="images/userprofileimg.jpg" alt="mozi" width="30" height=
+            "30"></div>
               <?php
   }
               ?>

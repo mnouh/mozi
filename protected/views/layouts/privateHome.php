@@ -100,7 +100,7 @@ $notificationUrl = Yii::app()->createUrl('user/notification');
           </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-                <li> <a href="#"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
+                <li> <a href="<?php echo Yii::app()->createUrl('account/index');?>"><img src="images/favicon_logo.png" alt="mozi" width="60" height=
             "30" ALIGN="MIDDLE"></a></li>
             <li>
                  <input style="position: absolute; top: 10px" type="text" class="input-xlarge search-query" placeholder="Search friends or payments...">
@@ -110,7 +110,7 @@ $notificationUrl = Yii::app()->createUrl('user/notification');
             
                   
                  <div style="float:right; padding-top: 3px" class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo Yii::app()->createUrl('user/home');?>">
     <i class="icon-user"></i> Account
     <span class="caret"></span>
   </a>
@@ -122,19 +122,19 @@ $notificationUrl = Yii::app()->createUrl('user/notification');
 <li><a href="<?php echo Yii::app()->createUrl('account/logout');?>">Logout</a></li>
 
     </ul>
+                     
               </div>
+              <?php
+              $model = User::model()->findByPk(Yii::app()->user->id);
+                  ?>
               <div class="nav-collapse collapse" style="float:right;">
                   <ul class="nav">
-                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Dash Board</a></li>
+                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('user/home');?>"><?php echo $model->firstName .' '.$model->lastName;?></a></li>
+                      <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('user/home');?>">Dash Board</a></li>
                       <li><a style="padding-top: 15px" href="<?php echo Yii::app()->createUrl('account/about');?>">Marketplace</li>
                   </ul>
               </div>
-              <p style="float:right; padding-top: 15px; padding-right: 10px;" >
-                  <?php
-              $model = User::model()->findByPk(Yii::app()->user->id);
-              echo $model->firstName .' '.$model->lastName;
-                  ?>
-              </p>
+              
               <div style="float:right; padding-top: 8px; padding-right: 10px;"><img src="images/userprofileimg.jpg" alt="mozi" width="30" height=
             "30"></div>
                   
