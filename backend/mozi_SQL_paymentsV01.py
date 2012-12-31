@@ -2,6 +2,7 @@ import os,glob
 import tweetstream, random
 import MySQLdb as mdb
 import pusher, json
+import logging
 
 ##initialize outgoing tweets 
 import sys
@@ -30,6 +31,14 @@ key_secret = '5340a9843f6b11e28447026ba7cd33d0'
 balanced.configure(key_secret)
 
 totalPaymentAmount=0.0
+
+#initiate logger for debug and error
+logger = logging.getLogger('mozi_SQL_paymentsV01')
+hdlr = logging.FileHandler('moziTwitterPayments.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr) 
+logger.setLevel(logging.INFO) #ignoring debug, info
 
 
 class readDatabase():
@@ -159,74 +168,87 @@ print "Mozi Demonstration"
 
 databaseRead=readDatabase()
 userData=databaseRead.pullTwitterHandles()
+logger.debug("0-0 Pulling Twitter Handles from Database")
 
 users=[]
+logger.debug("0-1 Indentifying Twitter IDs from Handles")
 for user in range(len(userData)):
-    print userData[user]
     userSearch=api.get_user(userData[user])
     userID=userSearch.id
     users.append(userID)
 
-print "Scanning "+str(len(users))+" Mozi User Twitter Handles"
-print users
-
-
 with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
+    logger.debug("0-2 Listening for Tweets from Mozi Users")
     for tweet in stream:
+        logger.debug("Tweet Match to User Identified")
         try:
             tweetID=tweet[u'id']
             replyTweetID=tweet[u'in_reply_to_status_id']
 
             for hashtag in range(len(tweet[u'entities'][u'hashtags'])):
                 if tweet[u'entities'][u'hashtags'][hashtag][u'text'] == 'pay':
-
+                    logger.info("Tweet with #Pay identified")
+                    logger.debug("proccessing tweet to validate payer & recipient and initate payment process")
                     #tweet only allowed 1 user per transaction
                     if len(tweet[u'entities'][u'user_mentions'])>1:
                         message="@"+"%s you can only send money to one user at a time."%str(tweet[u'user'][u'screen_name'])
                         print message
+                        logger.warning("ERROR: User sent to multiple twitter users")
+                        logger.warning(message)
                         api.update_status(message)
                     else:
                         #check to see if users are mozi members  
                         senderName= str(tweet[u'user'][u'screen_name'])
                         try: #filter for users that don't exist
                             recipientName=str(tweet[u'entities'][u'user_mentions'][0][u'screen_name'])
+                            logger.debug("recipient exists on Twitter")
                         except IndexError:
                             message="@%s, that user does not exist on Twitter. Try fixing the recipient name!"%str(tweet[u'user'][u'screen_name'])
-                            print message
                             api.update_status(message)
-                            break
+                            logger.warning("ERROR: User attempted to send to user not on Twitter.")
+                            logger.warning(message)
+                            detect=1
+                            pass
+                    if detect==1:
+                        pass
 
                         #global check to make sure both users are fully registered
+                        logger.debug("checking for twitter user membership with Mozi...")
                         chkmem = readDatabase()
                         test=[chkmem.checkMember(senderName),chkmem.checkMember(recipientName)]
                         
+                        
                         if test!=[True,True]:
+                            logger.debug("both twitter useres are mozi members")
                             if chkmem.checkMember(senderName)==False: #ALSO NEEDS BANK ACCOUNT CHECK!
                                 subMessage="@%s you need to link an account before you can send money!"%senderName
                                 message=subMessage
-                                print message
+                                logger.warning("sender does not have account linked to mozi")
                                 api.update_status(message)
 
                             if chkmem.checkMember(recipientName)==False: #ALSO NEEDS BANK ACCOUNT CHECK
                                 #tell sender that recipient isn't registered
                                 subMessage="@%s , user %s needs to register before you can send him money!"%(senderName,recipientName)
                                 message=subMessage
-                                print message
+                                logger.warning("recipient does not have registered accounts with Mozi")
+                                logger.debug("send message to sender that recipient is not registerd")
                                 api.update_status(message)
                                 #tweet to recipient that money is awaiting
                                 subMessage="@%s , @%s wants to send you money using Mozi! Register at www.mozime.com to get it!"%(recipientName, senderName)
                                 message=subMessage
-                                print message
+                                logger.debug("send message to recipient to join Mozi to accept")
                                 api.update_status(message)
 
                         else:  #proceed with transaction
-                            print "begin transaction.."
+                            logger.info("initiating pending transaction")
+                            logger.debug("parsing tweet text string and identifying payment numbers")
+                            #this will break if other numbers included
                             tweetText=str(tweet[u'text'])
                             tweetText=tweetText.split(" ")
                             for i in range(len(tweetText)):
                                 tweetText[i]=tweetText[i].strip('$')
                             
-                            index=[]
+                            index=[] 
                             for i in range(len(tweetText)):
                                 try:
                                     float(tweetText[i])
@@ -238,6 +260,7 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
 
                             #select Accounts based on e-mail of users
+                            logger.debug("identifying users emails and mozi IDs")
                             senderData=readDatabase()
                             senderInfo=senderData.getIDandEmail(senderName)
                
@@ -246,32 +269,41 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
                             payComments="not yet defined"
 
+
                             #record transaction on mozi
                             payData=payDatabase()
+                            logger.info("pushing new pending transaction to tbl_transaction")
                             trans=payData.newTransaction(senderInfo[0],recipientInfo[0],payAmountDeclared,payComments,tweetID,0)
                             trans_id=trans[0][0]
                             pusher.app_id=mozi_app_id
                             pusher.key=mozi_api_key
                             pusher.secret=mozi_secret
 
+
                             encode_data= {"message":"new transaction pending","transactionId":trans_id,"type":"1"}
                             encode_data= json.dumps(encode_data)
-
+                            
                             p=pusher.Pusher()
                             p['private_'+str(recipientInfo[0])].trigger('my_event', encode_data)
+                            logger.debug("notification sent to mozime account")
 
                             
-                            print "payment pending!"
+                            logger.info("payment is pending")
 
             #payment pending complete
             #listen for accepted payments
+
+                    
                             
             for hashtag in range(len(tweet[u'entities'][u'hashtags'])):
                 if tweet[u'entities'][u'hashtags'][hashtag][u'text'] == 'accept':
-                    #if user is user receiving...
+                    logger.info("Tweet with #accept request detected")
+                    logger.debug("check to see if user is the user recieving the funds")
                     if replyTweetID != None:
                         search=payDatabase()
                         transaction=search.searchTweetTransaction(replyTweetID)[0]
+                        logger.debug("finding pending transactions based on reply to tweet ID")
+                        
 
                         senderName= str(tweet[u'user'][u'screen_name'])
                         senderData=readDatabase()
@@ -286,8 +318,12 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                         trans_id=transaction[0]
 
                         if validTrans==True: #check for reply (validates tweet to initiated tweet
+                            logger.debug("transaction identified based on reply tweet ID")
                             if idReceiver==True:  #check for recipient
+                                logger.debug("receiver identified correctly to accept payment")
                                 if transaction[10]==0: #check for pending, hasn't already been accepted
+                                    logger.debug("transaction has not already been processed")
+                                    logger.info("Transaction undergoing processing")
                                         
                                     payAmount=transaction[4]
                                     payAmount=payAmount*1.029+.30
@@ -304,11 +340,17 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                     #initate transaction from buyer
                                     payComments="not available yet"
                                     amount_in_cents = int(float("%0.2f" % (float(payAmount)*100))) # payment USD
+                                    logger.debug("communicating with Balanced Payments")
+                                    logger.debug("searching for registered payment credentials by email")
                                     buyer = balanced.Account.query.filter(email_address=payerInfo[1])[0]
+                                    logger.debug("pushing debit transaction from sender account")
                                     debit = buyer.debit(int(amount_in_cents), appears_on_statement_as='MOZI TWITTER PURCHASE',description=payComments)
+                                    logger.info("Balanced Payments accepted transactions")
+
 
                                     changeStatus=payDatabase()
                                     changeStatus.acceptTweetTransaction(replyTweetID)
+                                    logger.debug("transaction changed from 0 to 1 .. accepted")
 
 
                                     #push notification to mozime.com
@@ -316,27 +358,32 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                     encode_data= json.dumps(encode_data)
                                     p=pusher.Pusher()
                                     p['private_'+str(payerInfo[0])].trigger('my_event', encode_data)
+                                    logger.debug("pushed notification to mozime")
 
         
                                     submess="@%s @%s, payment of "%(senderName,payerName)
-                                    message=submess+str(payAmount)+" has been accepted!"
-                                    api.update_status(message)
+                                    now=time.strftime("%b %d %H:%M:%S")
+                                    message= submess+" has been accepted at "+str(now)+"."
 
-                                    print "payment accepted!"
+                                    print message
+                                    api.update_status(message)
+                                    logger.debug("payer and buyer identified payment status is changed")
+
+                                    logger.info("Payment accepted into Balanced Payment account for Mozi")
 
                                 else:
+                                    logger.info("Payment already accepted")
                                     now=time.strftime("%b %d %H:%M:%S")
                                     submess="@%s"%(senderName)
-                                    message=submess+", you have already accepted that payment on "+now+"!"
+                                    message=submess+", you have already accepted that payment on "+str(now)+"!"
                                     api.update_status(message)
+                                    
 
 
         except KeyError:
             pass
                                 
 
-                                #notify users about transaction
-    ##                            
 
 
 ###END
