@@ -70,6 +70,14 @@ class CListView extends CBaseListView
 	 * </ul>
 	 */
 	public $itemView;
+        
+        public $headerView;
+        
+        
+        public $headerTagName='div';
+        
+        
+        public $headerCssClass = 'header';
 	/**
 	 * @var string the HTML code to be displayed between any two consecutive items.
 	 * @since 1.1.7
@@ -91,7 +99,7 @@ class CListView extends CBaseListView
 	 * These tokens are recognized: {summary}, {sorter}, {items} and {pager}. They will be replaced with the
 	 * summary text, the sort links, the data item list, and the pager.
 	 */
-	public $template="{summary}\n{sorter}\n{items}\n{pager}";
+	public $template="{summary}\n{sorter}\n{header}\n{items}\n{pager}";
 	/**
 	 * @var string the CSS class name that will be assigned to the widget container element
 	 * when the widget is updating its content via AJAX. Defaults to 'list-view-loading'.
@@ -238,12 +246,26 @@ class CListView extends CBaseListView
 		$cs->registerScriptFile($this->baseScriptUrl.'/jquery.yiilistview.js',CClientScript::POS_END);
 		$cs->registerScript(__CLASS__.'#'.$id,"jQuery('#$id').yiiListView($options);");
 	}
+        
+        public function renderHeader()
+        {
+            echo CHtml::openTag($this->headerTagName,array('class'=>$this->headerCssClass))."\n";
+		
+			$owner=$this->getOwner();
+			$headerViewFile=$owner->getViewFile($this->headerView);
+                        
+                        $owner->renderFile($headerViewFile);
+                        
+		echo CHtml::closeTag($this->headerTagName);
+            
+        }
 
 	/**
 	 * Renders the data item list.
 	 */
 	public function renderItems()
 	{
+            
 		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
 		$data=$this->dataProvider->getData();
 		if(($n=count($data))>0)
@@ -266,6 +288,7 @@ class CListView extends CBaseListView
 			$this->renderEmptyText();
 		echo CHtml::closeTag($this->itemsTagName);
 	}
+        
 
 	/**
 	 * Renders the sorter.

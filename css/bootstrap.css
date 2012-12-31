@@ -6099,3 +6099,8 @@ div.form .errorMessage
         display:inline;
 	/*font-size: 0.8em;*/
 }
+
+.moziMember {
+    
+    background-image: url("../images/favicon.png");
+}

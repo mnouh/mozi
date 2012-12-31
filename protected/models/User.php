@@ -155,7 +155,8 @@ class User extends CActiveRecord
     public function validatePassword($password) {
         return $this->hashPassword($password, $this->salt) === $this->password;
     }
-
+    
+    
 
     /**
      * Checks if the password supplied is the same as the old password

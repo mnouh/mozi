@@ -34,6 +34,7 @@
  $cs = Yii::app()->getClientScript();
  $cs->registerScriptFile($baseUrl.'/js/bootstrap.js');
  $cs->registerScriptFile($baseUrl.'/js/inner.js');
+ $cs->registerScriptFile($baseUrl.'/js/key.js');
 
         
         ?>

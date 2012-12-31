@@ -60,7 +60,7 @@ abstract class CBaseListView extends CWidget
 	 * These tokens are recognized: {summary}, {items} and {pager}. They will be replaced with the
 	 * summary text, the items, and the pager.
 	 */
-	public $template="{summary}\n{items}\n{pager}";
+	public $template="{summary}\n{header}\n{items}\n{pager}";
 	/**
 	 * @var string the summary text template for the view. These tokens are recognized and will be replaced
 	 * with the corresponding values:
@@ -144,6 +144,7 @@ abstract class CBaseListView extends CWidget
 		echo preg_replace_callback("/{(\w+)}/",array($this,'renderSection'),$this->template);
 		ob_end_flush();
 	}
+        
 
 	/**
 	 * Renders a section.
@@ -156,8 +157,10 @@ abstract class CBaseListView extends CWidget
 	protected function renderSection($matches)
 	{
 		$method='render'.$matches[1];
+                
 		if(method_exists($this,$method))
 		{
+                        
 			$this->$method();
 			$html=ob_get_contents();
 			ob_clean();
@@ -284,4 +287,6 @@ abstract class CBaseListView extends CWidget
 	 * Child classes should override this method to provide the actual item rendering logic.
 	 */
 	abstract public function renderItems();
+        
+        abstract public function renderHeader();
 }

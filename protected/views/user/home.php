@@ -1,3 +1,37 @@
+<script type="text/javascript">
+    //<![CDATA[
+    
+    $(document).ready(function() {
+    
+            $('#createTransaction').click(function(){
+                
+                
+                jQuery.ajax({
+                    'type':'POST',
+                    'url':'http://localhost/~mnouh/mozi/index.php?r=transaction/create',
+                    'cache':false,
+                    'data':$("form").serialize(),
+                    'success':
+                        function(html){
+                        $('div.items').prepend(html);
+                        $("textarea#description").val('');
+                        $("input").val('');
+                        
+                    }});
+                
+                
+                });
+        
+        });
+
+        
+    
+    
+    
+   
+</script>
+
+
 <div class="container-fluid">
         <div class="row-fluid">
           <div class="span3 bs-docs-sidebar">
@@ -18,79 +52,69 @@
            &nbsp;  </div>
       
             
-      
+       
            
           <div class="span5">
               <div class="row">
                <div class="span12">
-                    <h3>Payment Hub</h3>
-                 
-                        <div class="input-append">
-                     <button class="btn" type="button">Send</button>
-                     <button class="btn" type="button">Request</button>
-                     <input class="input-xlarge" id="appendedInputButtons" type="text" placeholder="Enter Mozi, @twitter name, e-mail, or phone # of user">
-                 
+                   
+                   <div id="status">
+                   <?php 
+                   
+                   $this->renderPartial('_pay', array('model' => $model), false, false);
+                   ?>
                     </div>
-                
-                
-                        <textarea cols="86" rows="2" placeholder="$10.50 for ..."></textarea>
-             
-                    
-              
-                        <button class="btn btn-info" type="button">Pay</button>
-                  
-              </div>
               </div>
               
             <div id="space" style="padding-bottom:15px;">
            &nbsp;  </div>
+              
    
             <div class="row">
               <div class="span12">
+                  
+                  
+                 
          
             
               <h4><i class="icon-calendar"></i> Recent Transactions</h4>
-              <table class="table table-hover">
-                  <td><strong>#</strong></td>
-                  <td><strong>Time</strong></td>
-                  <td><strong>Friend</strong></td>
-                  <td><strong>Notes</strong></td>
-                  <td><strong>Amount</strong></td>
-                  <td><strong>Status</strong></td>
+              
+              
+              <div class="span12">
                   
-                  <tr class="warning">
-                    <td>5817</td>
-                    <td>3:32pm</td>
-                    <td>Chris Paquette <small>@irunthisblock2</small></td>
-                    <td>#xlargecombo</td>
-                    <td>$19.36</td>
-                    <td>Requested</td>
-                  </tr>
-                  <tr>
-                    <td>5816</td>
-                    <td>12:11pm</td>
-                    <td>Mohamed Nouh <small>@mohamednouh</small></td>
-                    <td>French Toast</td>
-                    <td>-$13.86</td>
-                    <td>Paid</td>
-                  </tr>
-                  <tr>
-                    <td>5815</td>
-                    <td>7:28am</td>
-                    <td>Lucas Espinoza <small>@lespino</small></td>
-                    <td>#xlargecombo</td>
-                    <td>$19.36</td>
-                    <td>Received</td>
-                  </tr>
-                  <tr>
-                    <td>5814</td>
-                    <td>Jan 1, 2013</td>
-                    <td>George Murphy <small>@gmurphy19</small></td>
-                    <td>CUSTOM</td>
-                    <td>$7.72</td>
-                    <td>Received</td>
-                  </tr>
-              </table>
+                  
+                  <?php
+             
+             
+    $this->widget('zii.widgets.CListView', array(
+    'dataProvider'=>$dataProvider,
+    'itemView'=>'_entry',   // refers to the partial view named '_post'
+    'headerView'=>'_headerEntry',   // refers to the partial view named '_post'
+    'pagerCssClass' => 'pagination',
+        'pager'=>array(
+            'htmlOptions' => array('class' => ''),
+            'header' => '',
+            'footer' => '',
+            'prevPageLabel' => 'Prev',
+            'nextPageLabel' => 'Next',
+            'selectedPageCssClass' => 'active',
+            
+	),
+    //'cssFile'=> Yii::app()->baseUrl.'/styles/css.css',
+    'sortableAttributes'=>array(
+        'recieverId',
+        'amount'=>'Amount',
+        //'' => CHtml::link('Clear Filters', array('user/'.$model->lookup.'?Reviews_page=pager')),
+    ),
+));
+    
+    
+       ?>
+                  
+                  
+                  
+              </div>
+              
                     </div>
              
              </div>
@@ -108,8 +132,8 @@
                       <img src="images/userprofileimg.jpg" alt="mozi" width="100" height="100"></div>
                       <div class="span8" style="padding-left: 6px">
         
-                           <b><?php echo $model->firstName.' '.$model->lastName;?></b><br>
-                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> <?php echo $model->username;?>
+                           <b><?php echo $user->firstName.' '.$user->lastName;?></b><br>
+                           <img src="images/favicon.png" alt="mozi" width="15" height="15"> <?php echo $user->username;?>
                            
                            <h3 style="margin-top: 1px; margin-bottom:0px;">$151.36 <a href="#"><small>cash out</small></a></h3>
                        
