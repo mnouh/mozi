@@ -1,17 +1,11 @@
 import os,glob
 import tweetstream, random
 import MySQLdb as mdb
-import pusher, json
 
 ##initialize outgoing tweets 
 import sys
 import tweepy
 import time,math
-
-#notification sync with mozi
-mozi_app_id='34552'
-mozi_secret='57d22d37931060f92e98'
-mozi_api_key='721c7d62cacee28479b2'
 
 #twitter app (MoziProto) initiation
 CONSUMER_KEY = 'Jta9mhWiqMQSVYx1QVBAdQ'
@@ -22,7 +16,7 @@ ACCESS_SECRET = 'a7eZaj1F6Aohbn4O6UuegrqBcH6Qv0ki9zWYAmDidj8'
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
-
+##api.update_status("@irunthisblock2 test")
 
 #BalancedPayments.com marketplace initiation
 import balanced
@@ -31,6 +25,9 @@ balanced.configure(key_secret)
 
 totalPaymentAmount=0.0
 
+##########  CREATE    DATABASE        #######################
+#database is a .txt based database that uses directory userDatabase/ to store users by their twitterID number
+#additional features may be created by hardcode incorporating them directly into the code
 
 class readDatabase():
     def __init__(self):
@@ -133,10 +130,7 @@ class payDatabase:
         self.database=[]
         cur=self.con.cursor()
         cur.execute("INSERT INTO tbl_transaction (recieverId, senderId, amount, description, date, status, paymentType, paymentTypeId, tweetId, paymentTracking) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (receiveID, sendID, amount, description, newtime, 0, 0, 2147483647, tweetID, 0))
-
-        cur.execute("SELECT * FROM tbl_transaction WHERE date=%s and recieverId=%s", (newtime, receiveID))
-        data=cur.fetchall()
-        return data
+        print 'updated'
 
     def searchTweetTransaction(self, tweetID):
         self.con=mdb.connect('mozime.com','mozi','team4625','mozi_main')
@@ -151,32 +145,58 @@ class payDatabase:
         self.database=[]
         cur=self.con.cursor()
         cur.execute("UPDATE tbl_transaction SET paymentTracking=1 WHERE tweetId=%s", (tweetID))
+        
+        
+        
+        
 
     
 ##################################################################
 
 print "Mozi Demonstration"
 
+yo=payDatabase()
+banks=yo.linkedBankAccount(1)
+credit=yo.linkedCreditCard(1)
+
+print banks
+print credit
+
+yo=readDatabase()
+moziInfo=yo.getIDandEmail('irunthisblock2')
+print moziInfo
+
 databaseRead=readDatabase()
-userData=databaseRead.pullTwitterHandles()
+words=databaseRead.pullTwitterHandles()
 
 users=[]
-for user in range(len(userData)):
-    print userData[user]
-    userSearch=api.get_user(userData[user])
+for user in range(len(words)):
+    print words[user]
+    userSearch=api.get_user(words[user])
     userID=userSearch.id
     users.append(userID)
 
-print "Scanning "+str(len(users))+" Mozi User Twitter Handles"
+
 print users
+    
 
+#print words
 
+count=0
 with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
     for tweet in stream:
-        try:
+        
+            print "NEW TWEET"
+            print str(tweet[u'text'])
+            print
+
             tweetID=tweet[u'id']
             replyTweetID=tweet[u'in_reply_to_status_id']
 
+            print tweetID
+            print replyTweetID
+            
+        
             for hashtag in range(len(tweet[u'entities'][u'hashtags'])):
                 if tweet[u'entities'][u'hashtags'][hashtag][u'text'] == 'pay':
 
@@ -188,19 +208,20 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                     else:
                         #check to see if users are mozi members  
                         senderName= str(tweet[u'user'][u'screen_name'])
-                        try: #filter for users that don't exist
-                            recipientName=str(tweet[u'entities'][u'user_mentions'][0][u'screen_name'])
-                        except IndexError:
-                            message="@%s, that user does not exist on Twitter. Try fixing the recipient name!"%str(tweet[u'user'][u'screen_name'])
-                            print message
-                            api.update_status(message)
-                            break
+                        recipientName=str(tweet[u'entities'][u'user_mentions'][0][u'screen_name'])
+
+                        chkmem = readDatabase()
 
                         #global check to make sure both users are fully registered
-                        chkmem = readDatabase()
+
+                        print "Sender: ",chkmem.checkMember(senderName)
+                        print "Recipient: ",chkmem.checkMember(recipientName)
+
                         test=[chkmem.checkMember(senderName),chkmem.checkMember(recipientName)]
+                        print test
                         
                         if test!=[True,True]:
+                            print "FALSE DETECTED"
                             if chkmem.checkMember(senderName)==False: #ALSO NEEDS BANK ACCOUNT CHECK!
                                 subMessage="@%s you need to link an account before you can send money!"%senderName
                                 message=subMessage
@@ -240,26 +261,15 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                             #select Accounts based on e-mail of users
                             senderData=readDatabase()
                             senderInfo=senderData.getIDandEmail(senderName)
-               
+                            print senderInfo
                             recipientInfo=senderData.getIDandEmail(recipientName)
-                         
+                            print recipientInfo
 
                             payComments="not yet defined"
 
                             #record transaction on mozi
                             payData=payDatabase()
-                            trans=payData.newTransaction(senderInfo[0],recipientInfo[0],payAmountDeclared,payComments,tweetID,0)
-                            trans_id=trans[0][0]
-                            pusher.app_id=mozi_app_id
-                            pusher.key=mozi_api_key
-                            pusher.secret=mozi_secret
-
-                            encode_data= {"message":"new transaction pending","transactionId":trans_id,"type":"1"}
-                            encode_data= json.dumps(encode_data)
-
-                            p=pusher.Pusher()
-                            p['private_'+str(recipientInfo[0])].trigger('my_event', encode_data)
-
+                            payData.newTransaction(senderInfo[0],recipientInfo[0],payAmountDeclared,payComments,tweetID,0)
                             
                             print "payment pending!"
 
@@ -283,7 +293,6 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
                         validTrans=transaction[9]==replyTweetID
                         idReceiver=transaction[1]==senderInfo[0]
-                        trans_id=transaction[0]
 
                         if validTrans==True:
                             if idReceiver==True:
@@ -293,7 +302,7 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                 print payAmount
 
 
-                                ##USE TO DETERMINE CORRECT ACCOUNT or implement system for default payment found within linkedCreditCard
+                                ##USE TO DETERMINE CORRECT ACCOUNT
                                 #senderPayData=payDatabase()
                                 #creditInfo=senderPayData.linkedCreditCard(payerInfo[0]) #moziID
                                 ###!!!This process will continue once our flow is correct, assume now default selected we search by e-mail on balanced
@@ -301,29 +310,14 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
                                 #initate transaction from buyer
                                 payComments="not available yet"
-                                amount_in_cents = int(float("%0.2f" % (float(payAmount)*100))) # payment USD
+                                amount_in_cents = float(payAmount) * 100  # payment USD
                                 buyer = balanced.Account.query.filter(email_address=payerInfo[1])[0]
-                                debit = buyer.debit(int(amount_in_cents), appears_on_statement_as='MOZI TWITTER PURCHASE',description=payComments)
+                                debit = buyer.debit(amount_in_cents, appears_on_statement_as='MOZI TWITTER PURCHASE',description=payComments)
 
                                 changeStatus=payDatabase()
                                 changeStatus.acceptTweetTransaction(replyTweetID)
 
-
-                                #push notification to mozime.com
-                                encode_data= {"message":"new transaction accepted","transactionId":trans_id,"type":"2"}
-                                encode_data= json.dumps(encode_data)
-                                p=pusher.Pusher()
-                                p['private_'+str(payerInfo[0])].trigger('my_event', encode_data)
-
-                                submess="@%s @%s, payment of "%(senderName,payerName)
-                                message=submess+str(payAmount)+" has been accepted!"
-                                api.update_status(message)
-
                                 print "payment accepted!"
-
-
-        except KeyError:
-            pass
                                 
 
                                 #notify users about transaction
