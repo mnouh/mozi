@@ -1,0 +1,27 @@
+2012-12-31 14:46:58,605 INFO Tweet with #Pay identified
+2012-12-31 14:48:02,875 INFO Tweet with #Pay identified
+2012-12-31 14:48:40,703 INFO Tweet with #Pay identified
+2012-12-31 14:50:51,062 INFO Tweet with #Pay identified
+2012-12-31 14:50:51,476 INFO initiating pending transaction
+2012-12-31 14:50:51,832 INFO pushing new pending transaction to tbl_transaction
+2012-12-31 14:50:52,348 INFO payment is pending
+2012-12-31 14:51:40,576 INFO Tweet with #Pay identified
+2012-12-31 14:51:41,043 INFO initiating pending transaction
+2012-12-31 14:51:41,403 INFO pushing new pending transaction to tbl_transaction
+2012-12-31 14:51:41,914 INFO payment is pending
+2012-12-31 14:55:32,275 INFO Tweet with #Pay identified
+2012-12-31 14:55:32,684 INFO initiating pending transaction
+2012-12-31 14:55:33,743 INFO pushing new pending transaction to tbl_transaction
+2012-12-31 14:55:34,835 INFO payment is pending
+2012-12-31 14:56:24,059 INFO Tweet with #accept request detected
+2012-12-31 14:56:25,003 INFO Transaction undergoing processing
+2012-12-31 14:56:25,005 INFO User is sending 0.88
+2012-12-31 14:56:25,005 INFO Mozi is charging 1.21
+2012-12-31 14:56:27,283 INFO Balanced Payments accepted transactions
+2012-12-31 14:56:28,348 INFO Payment accepted into Balanced Payment account for Mozi
+2012-12-31 14:59:11,346 INFO Tweet with #Pay identified
+2012-12-31 14:59:11,782 WARNING ERROR: User attempted to send to user not on Twitter.
+2012-12-31 14:59:11,782 WARNING @irunthisblock2, that user does not exist on Twitter. Try fixing the recipient name!
+2012-12-31 15:07:04,584 INFO Tweet with #Pay identified
+2012-12-31 15:07:05,013 WARNING ERROR: User attempted to send to user not on Twitter.
+2012-12-31 15:07:05,013 WARNING @irunthisblock2, that user does not exist on Twitter. Try fixing the recipient name! Dec 31 15:07:04
