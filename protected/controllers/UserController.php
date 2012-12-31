@@ -32,7 +32,7 @@ class UserController extends Controller
         
             //'condition'=>"m.id <> $model->id AND (m.categories LIKE '%$topCat%') AND ((3959*acos(cos(radians($lat))*cos(radians(m.lat))*cos(radians(m.lng)-radians($lng))+sin(radians($lat))*sin(radians(m.lat)))) <= $radius)",
         
-        'order' => "date DESC",
+        'order' => "id DESC",
         
     ),
         'sort'=>$sort,
@@ -87,6 +87,78 @@ class UserController extends Controller
             
             $this->render('account');
         }
+        
+        /**
+         *Type # 1 -> New Transaction Message
+         * Type # 2 -> Reciever Accepted Transaction. 
+         */
+        public function actionNotification()
+        {
+            /**
+             * Correct Format:
+             * {"message":"new transaction pending","transactionId":36,"type":"1"}
+             * [["message", "new transaction pending"], ["transactionId", 42], ["type", 1]]
+             */
+            
+            if(isset($_POST['type']) && isset($_POST['message'])) {
+            
+                if(!empty($_POST['type'])) {
+            
+                    $notificationType = $_POST['type'];
+                    //Transaction Message
+                    if($notificationType == 1) {
+            
+                        if(isset($_POST['transactionId']) && !empty($_POST['transactionId'])) {
+                            
+                            $transactionId = $_POST['transactionId'];
+            
+                        
+                        $model = Transaction::model()->findBypk($transactionId);
+                        
+                        $sender = User::model()->findbyPk($model->senderId);
+                        
+                        
+                        $this->renderPartial('notificationTransaction', array('model' => $model, 'sender' => $sender));
+                        
+                        
+                        }
+                        
+                    }
+                    
+                    elseif($notificationType == 2) {
+                        
+                        
+                        if(isset($_POST['transactionId']) && !empty($_POST['transactionId'])) {
+                            
+                            $transactionId = $_POST['transactionId'];
+            
+                        
+                        $model = Transaction::model()->findBypk($transactionId);
+                        
+                        $reciever = User::model()->findbyPk($model->recieverId);
+                        
+                        
+                        $this->renderPartial('acceptTransaction', array('model' => $model, 'reciever' => $reciever));
+                        
+                        
+                        }
+                        
+                        
+                        
+                    }
+                    else {
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+            }
+            
+        }
+        
+        
         
         public function actionContacts($q) {
 

@@ -26,7 +26,7 @@ class TransactionController extends Controller
            
            if(isset($_POST['Transaction']['recieverId']) && isset($_POST['description']) && isset($_POST['transType'])) {
                
-            if(!empty($_POST['Transaction']['recieverId']) && !empty($_POST['description']) && !empty($_POST['transType']))
+            if(!empty($_POST['Transaction']['recieverId']) && !empty($_POST['description']) && !empty($_POST['transType'])) {
                $id = $_POST['Transaction']['recieverId'];
                $rawDescription = $_POST['description'];
                $type = $_POST['transType'];
@@ -47,7 +47,7 @@ class TransactionController extends Controller
                if($type == 1) {
                 
                    $model->senderId = $user_id;
-                   $model->recieverId = id;
+                   $model->recieverId = $id;
                    
                }
                
@@ -77,46 +77,50 @@ class TransactionController extends Controller
             }
                
            }
-           
-           
-           /*
-           if(isset($_POST['comments']) && isset($_POST['event_id'])) {
+           }
+         
+        }
+        
+        public function actionTest()
+        {
+            
+        $app_id	= '34552';
+	$secret	= '57d22d37931060f92e98';
+	$api_key = '721c7d62cacee28479b2';
+            
+        $pusher = new Pusher($api_key, $secret, $app_id);
+        
+        
+        $message = array('message' => 'new transaction pending', 'transactionId' => 36, 'type' => '2');
+        $message = json_encode($message);
+            
+            $pusher->trigger('private_7', 
+                 'my_event', 
+                 $message);
+            
+        }
+        
+        public function actionShowEntry()
+        {
+            
+            if(isset($_POST['transId']) && !empty($_POST['transId'])) {
                 
-                if(!empty($_POST['comments']) && !empty($_POST['event_id'])) {
-                    
-                    
-                    if (Yii::app()->user->isGuest)
-                throw new CHttpException(404, 'The requested page does not exist.');
-                    
-            $user_id = Yii::app()->user->id;
-            $user = User::model()->findByPk($user_id);
-            $comments = $_POST['comments'];
-            $event_id = $_POST['event_id'];
-            
-            $model = new Eventdiscuss;
-            
-            $model->user_id = $user_id;
-            $model->event_id = $event_id;
-            $model->message = $comments;
-            $model->date = new CDbExpression('NOW()');
-            
-            if($model->validate()) {
+                $id = $_POST['transId'];
                 
-                if($model->save()) {
-             
-                    $this->renderPartial('post', array('comments' => $comments, 'user' => $user));
-                    
-                }
+                $model = Transaction::model()->findByPk($id);
+                
+                
+                $this->renderPartial('entry', array('model' => $model));
                 
             }
-                    
-                }
-                
-                
-            }
-            * 
-            */
             
+        }
+        
+        public function actionNotification()
+        {
+            
+            
+            $this->renderPartial('notify');
             
         }
 
