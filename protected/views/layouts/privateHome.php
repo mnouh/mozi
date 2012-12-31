@@ -1,3 +1,6 @@
+<?php
+$currentUserId = Yii::app()->user->id;
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -12,6 +15,44 @@
 	<![endif]-->
 
 	<!-- <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/main.css" /> -->
+        
+        <script src="http://js.pusher.com/1.12/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) window.console.log(message);
+    };
+
+    // Flash fallback logging - don't include this in production
+    WEB_SOCKET_DEBUG = true;
+    var currentUser = '<?php echo $currentUserId; ?>';
+    var pusher = new Pusher('721c7d62cacee28479b2');
+    var channel = pusher.subscribe('private_'+currentUser);
+    channel.bind('my_event', function(data) {
+        
+        //alert(data);
+        var decodedData = jQuery.parseJSON(data);
+        //decodedData = String(decodedData);
+        
+        jQuery.ajax({
+                    'type':'POST',
+                    'url':'http://localhost/~mnouh/mozi/index.php?r=user/notification',
+                    'cache':false,
+                    'data': decodedData,
+                    'success':
+                        function(html){
+                        $('div#statusUpdate').prepend(html);
+                        //$("textarea#description").val('');
+                        //$("input").val('');
+                        
+                    }});
+    });
+  </script>
+        
+        
+        
+        
+        
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/index.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-responsive.css" />
         <style type="text/css">
@@ -103,7 +144,6 @@
         </div>
       </div>
     
- 
     
 
 	<?php echo $content; ?>

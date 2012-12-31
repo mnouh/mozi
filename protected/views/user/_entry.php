@@ -22,7 +22,7 @@ if($data->status == 0)
     $status = 'Pending';
 elseif($data->status == 1)
     $status = 'Paid';
-elseif($data->status == 1)
+elseif($data->status == 2)
     $status = 'Recieved';
 else
     $status = 'In Progress';

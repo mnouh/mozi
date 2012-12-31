@@ -30,6 +30,8 @@ return array(
 		
 	),
     
+    
+    
         'defaultController' => 'account',
 
 	// application components
@@ -39,6 +41,11 @@ return array(
 			'allowAutoLogin'=>true,
                         'class' => 'WebUser',
 		),
+               
+            
+            
+            
+            
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(

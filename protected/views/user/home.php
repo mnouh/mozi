@@ -14,8 +14,8 @@
                     'success':
                         function(html){
                         $('div.items').prepend(html);
-                        $("textarea#description").val('');
-                        $("input").val('');
+                        //$("textarea#description").val('');
+                        //$("input").val('');
                         
                     }});
                 
@@ -57,6 +57,11 @@
           <div class="span5">
               <div class="row">
                <div class="span12">
+                   <div id="statusUpdate">
+        &nbsp;
+            </div>
+                   
+                   
                    
                    <div id="status">
                    <?php 
@@ -81,6 +86,7 @@
               
               
               <div class="span12">
+                  
                   
                   
                   <?php
