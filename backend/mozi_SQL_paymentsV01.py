@@ -337,7 +337,7 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                 else:
                                     now=time.strftime("%b %d %H:%M:%S")
                                     submess="@%s"%(senderName)
-                                    message=submess+", you have already accepted that payment on "+now+"!"
+                                    message=submess+", you have already accepted that payment on "+str(now)+"!"
                                     api.update_status(message)
 
 
