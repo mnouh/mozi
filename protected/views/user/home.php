@@ -1,3 +1,6 @@
+<?php 
+$createTransUrl = Yii::app()->createUrl('transaction/create');
+?>
 <script type="text/javascript">
     //<![CDATA[
     
@@ -5,10 +8,10 @@
     
             $('#createTransaction').click(function(){
                 
-                
+                var createTransUrl = '<?php echo $createTransUrl; ?>';
                 jQuery.ajax({
                     'type':'POST',
-                    'url':'http://localhost/~mnouh/mozi/index.php?r=transaction/create',
+                    'url':createTransUrl,
                     'cache':false,
                     'data':$("form").serialize(),
                     'success':

@@ -1,5 +1,6 @@
 <?php
 $currentUserId = Yii::app()->user->id;
+$notificationUrl = Yii::app()->createUrl('user/notification');
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -26,6 +27,7 @@ $currentUserId = Yii::app()->user->id;
     // Flash fallback logging - don't include this in production
     WEB_SOCKET_DEBUG = true;
     var currentUser = '<?php echo $currentUserId; ?>';
+    var notificationUrl = '<?php echo $notificationUrl; ?>';
     var pusher = new Pusher('721c7d62cacee28479b2');
     var channel = pusher.subscribe('private_'+currentUser);
     channel.bind('my_event', function(data) {
@@ -36,7 +38,7 @@ $currentUserId = Yii::app()->user->id;
         
         jQuery.ajax({
                     'type':'POST',
-                    'url':'http://localhost/~mnouh/mozi/index.php?r=user/notification',
+                    'url':notificationUrl,
                     'cache':false,
                     'data': decodedData,
                     'success':

@@ -179,13 +179,206 @@ class AccountController extends Controller
             $this->render('signup', array('model' => $model));
         }
         
+        
         public function actionRecover()
         {
+    
+            if (isset($_GET['memberId']) && isset($_GET['tok']) && isset($_GET['status'])) {
+            $memberId = $_GET['memberId'];
+            $token = $_GET['tok'];
+            $status = $_GET['status'];
+            if (!empty($memberId) && !empty($token) && !empty($status)) {
+
+                /*
+                if ($status == 'user') {
+                    $user = User::model()->findByPk($memberId);
+                    if ($user != null && $user->isVerificationCodeValid($token)) {
+                        Yii::app()->user->setState('accountType', 'user');
+                        Yii::app()->user->setState('memberId', $user->id);
+                        $this->redirect(array('account/RecoveryChangePassword'));
+                    }
+                } elseif ($status == 'business') {
+                    $business = Business::model()->findByPk($memberId);
+                    
+                    if($business != null && $business->isVerificationCodeValid($token))
+                    {
+                        Yii::app()->user->setState('accountType', 'business');
+                        Yii::app()->user->setState('memberId', $business->id);
+                        $this->redirect(array('account/RecoveryChangePassword'));
+                    }
+                 * 
+                 */
+                    
+                } else {
+                    throw new CHttpException(404, 'The requested page does not exist.');
+                }
+            }
+        }
+        
+
+        
+        /**
+         * Recover your account, password and etc. 
+         */
+        public function actionRecovery()
+        {
             
+            $model = new RecoveryForm;
             
-            $this->render('recover');
+
+        // if it is ajax validation request
+       $this->performAjaxValidation($model, 'account-recovery-form');
+
+		// collect user input data
+		if(isset($_POST['RecoveryForm']))
+		{
+			$model->attributes=$_POST['RecoveryForm'];
+                        
+                        if($model->validate()) {
+                            
+                            $user = User::model()->find('LOWER(email)=?', array(strtolower($model->email)));
+                            
+                            
+                            
+                                $user->verifyCode = $this->createVerificationCode();
+                                $user->verifyCodeDate = new CDbExpression('NOW()');
+                                    if($user->update())
+                                        $this->sendAccountUserRecoveryConfirmation($user);
+                            
+                            Yii::app()->user->setFlash('status','An email has been sent out with instructions on resetting your password.');
+                        
+                            $model->setScenario('verify');
+                            //$this->redirect('account/verify-code');
+                        
+                            $this->redirect(array('account/emailrecovery'), array('model' => $model));
+                        }
+                        
+                }    
+                    $this->render('recovery', array('model' => $model));
+                
+                
+            
+                
             
         }
+        
+        public function createVerificationCode() {
+            $uniqueID = str_shuffle(uniqid());
+            $uniqueID = $uniqueID . '_' . uniqid();
+            $randomGenerated = '';
+
+            for ($i = 0; $i < strlen($uniqueID); $i++) {
+                $x = rand(0, 1);
+                if ($x == 0)
+                    $randomGenerated = $randomGenerated . strtoupper($uniqueID[$i]);
+                else
+                    $randomGenerated = $randomGenerated . $uniqueID[$i];
+            }
+
+        return $randomGenerated;
+        }
+        
+        
+        
+        public function actionVerifyCode()
+        {
+            $model = new RecoveryForm('verify');
+            
+        // if it is ajax validation request
+       $this->performAjaxValidation($model, 'account-recovery-step-two-form');
+        
+            // collect user input data
+		if(isset($_POST['RecoveryForm']))
+		{
+			$model->attributes=$_POST['RecoveryForm'];
+                        
+                        if($model->validate()) {
+                            
+                            //echo "Model Validated Succesfully";
+                            $user = User::model()->find('LOWER(email)=?', array(strtolower($model->email)));
+                            
+                            if($user != null)
+                            {
+                                
+                                echo 'Database Verification Code: '.$user->verifyCode.'<br>';
+                                echo 'User Input: '.$model->verifyCode.'<br>';
+                                
+                                if($user->verifyCode == $model->verifyCode)
+                                {
+                                    
+                                    echo "Verified Thanks!";
+                                    
+                                    $this->renderPartial('recovery-change-password', false, true);
+                                }
+                                else 
+                                    echo "Bad Verification Code";
+                                
+                            }
+                            
+                            
+                        }
+                }
+                else {
+            $this->render('verify-code', array('model' => $model));
+                }
+        }
+        
+        public function actionRecoveryChangePassword()    
+        {
+            $model = new RecoveryChangePasswordForm;
+            $this->performAjaxValidation($model, 'recovery-change-password-form');
+        
+            
+            $memberId = Yii::app()->user->getState('memberId');
+            
+            if(isset($memberId)) {
+                
+                if(!empty($memberId)) {
+              
+		if(isset($_POST['RecoveryChangePasswordForm']))
+		{
+			$model->attributes=$_POST['RecoveryChangePasswordForm'];
+                        
+                        if($model->validate()) {
+                            
+                            
+                                
+                                $user = User::model()->findByPk($memberId);
+                                if($user === null)
+                                    throw new CHttpException(404, 'The requested page does not exist.');
+                                else {
+                                    
+                                    if($user->changePasswordRecovery($model->password) && $user->update()) {
+                                        
+                                        $loginUser = new LoginForm;
+                                        $loginUser->password = $model->password;
+                                        $loginUser->email = $user->email;
+                                        if($loginUser->validate() && $loginUser->login())
+                                        {
+                                            Yii::app()->user->setState('memberId', null);
+                                            $this->redirect(array('user/home'));
+                                            
+                                        }
+                                    }
+                                        
+                                }
+                            
+                            
+                        }
+                }
+                           
+            
+                $this->render('recovery-change-password', array('model' => $model));
+                
+            
+                }
+            
+            }
+            
+        }
+        
+        
+        
         
          /**
          * Custom function allow validation of forms. Pass the model and the form id and then
