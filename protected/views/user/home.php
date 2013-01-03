@@ -144,7 +144,7 @@ $createTransUrl = Yii::app()->createUrl('transaction/create');
                            <b><?php echo $user->firstName.' '.$user->lastName;?></b><br>
                            <img src="images/favicon.png" alt="mozi" width="15" height="15"> <?php echo $user->username;?>
                            
-                           <h3 style="margin-top: 1px; margin-bottom:0px;">$151.36 <a href="#"><small>cash out</small></a></h3>
+                           <h3 style="margin-top: 1px; margin-bottom:0px;"><?php echo $user->balance;?> <a href="#"><small>cash out</small></a></h3>
                        
                     
                        </div>

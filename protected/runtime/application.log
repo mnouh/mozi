@@ -2190,3 +2190,24 @@ Stack trace:
 REQUEST_URI=/~mnouh/mozi/index.php?r=account/home
 HTTP_REFERER=http://localhost/~mnouh/mozi/index.php?r=user/home
 ---
+2013/01/02 22:08:12 [error] [exception.CException] exception 'CException' with message 'Property "Transaction.balance" is not defined.' in /Users/mnouh/Sites/mozi/framework/base/CComponent.php:131
+Stack trace:
+#0 /Users/mnouh/Sites/mozi/framework/db/ar/CActiveRecord.php(144): CComponent->__get('balance')
+#1 /Users/mnouh/Sites/mozi/protected/views/user/home.php(147): CActiveRecord->__get('balance')
+#2 /Users/mnouh/Sites/mozi/framework/web/CBaseController.php(127): require('/Users/mnouh/Si...')
+#3 /Users/mnouh/Sites/mozi/framework/web/CBaseController.php(96): CBaseController->renderInternal('/Users/mnouh/Si...', Array, true)
+#4 /Users/mnouh/Sites/mozi/framework/web/CController.php(870): CBaseController->renderFile('/Users/mnouh/Si...', Array, true)
+#5 /Users/mnouh/Sites/mozi/framework/web/CController.php(783): CController->renderPartial('home', Array, true)
+#6 /Users/mnouh/Sites/mozi/protected/controllers/UserController.php(49): CController->render('home', Array)
+#7 /Users/mnouh/Sites/mozi/framework/web/actions/CInlineAction.php(50): UserController->actionHome()
+#8 /Users/mnouh/Sites/mozi/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /Users/mnouh/Sites/mozi/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#10 /Users/mnouh/Sites/mozi/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(283): CController->run('home')
+#12 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(142): CWebApplication->runController('user/home')
+#13 /Users/mnouh/Sites/mozi/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /Users/mnouh/Sites/mozi/index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/~mnouh/mozi/index.php?r=user/home
+HTTP_REFERER=http://localhost/~mnouh/mozi/index.php
+---

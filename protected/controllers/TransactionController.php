@@ -69,6 +69,11 @@ class TransactionController extends Controller
                 
                 if($model->save()) {
              
+                   $receiver =  User::model()->findByPK($model->recieverId);
+                   $sender = User::model()->findByPK($model->senderId);
+                   
+                   $receiver->balance = $receiver->balance + amount;
+                   $sender->balance = $sender->balance - amount;
                     
                     $this->renderPartial('entry', array('model' => $model, 'user' => $user));
                     
