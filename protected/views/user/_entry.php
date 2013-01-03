@@ -35,7 +35,7 @@ else
 <div class="entry row" style="padding-top:8px; border-top: 1px solid #dddddd;">
                       
                       <div class="span1"><?php echo $data->id;?></div>
-                      <div class="span2">12/29/2012</div>
+                      <div class="span2"><?php echo $data->date;?></div>
                       <div class="span5"><?php echo $user->firstName.' '.$user->lastName;?>&nbsp;<small><b>@<?php echo $user->username;?></b></small></div>
                       <div class="span2"><?php echo $data->amount;?></div>
                       <div class="span1"><?php echo $status;?></div>

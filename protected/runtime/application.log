@@ -2211,3 +2211,31 @@ Stack trace:
 REQUEST_URI=/~mnouh/mozi/index.php?r=user/home
 HTTP_REFERER=http://localhost/~mnouh/mozi/index.php
 ---
+2013/01/03 13:31:18 [error] [php] PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known (/Users/mnouh/Sites/mozi/framework/db/CDbConnection.php:422)
+Stack trace:
+#0 /Users/mnouh/Sites/mozi/framework/db/CDbConnection.php(331): CDbConnection->open()
+#1 /Users/mnouh/Sites/mozi/framework/db/CDbConnection.php(309): CDbConnection->setActive()
+#2 /Users/mnouh/Sites/mozi/framework/base/CModule.php(388): CDbConnection->init()
+#3 /Users/mnouh/Sites/mozi/framework/base/CApplication.php(431): CWebApplication->getComponent()
+#4 /Users/mnouh/Sites/mozi/framework/db/ar/CActiveRecord.php(624): CWebApplication->getDb()
+#5 /Users/mnouh/Sites/mozi/framework/db/ar/CActiveRecord.php(2311): User->getDbConnection()
+#6 /Users/mnouh/Sites/mozi/framework/db/ar/CActiveRecord.php(388): CActiveRecordMetaData->__construct()
+#7 /Users/mnouh/Sites/mozi/protected/models/User.php(34): model()
+#8 /Users/mnouh/Sites/mozi/protected/components/UserIdentity.php(18): model()
+#9 /Users/mnouh/Sites/mozi/protected/models/LoginForm.php(52): UserIdentity->authenticate()
+#10 /Users/mnouh/Sites/mozi/framework/validators/CInlineValidator.php(43): LoginForm->authenticate()
+#11 /Users/mnouh/Sites/mozi/framework/validators/CValidator.php(214): CInlineValidator->validateAttribute()
+#12 /Users/mnouh/Sites/mozi/framework/base/CModel.php(158): CInlineValidator->validate()
+#13 /Users/mnouh/Sites/mozi/protected/controllers/AccountController.php(126): LoginForm->validate()
+#14 /Users/mnouh/Sites/mozi/framework/web/actions/CInlineAction.php(50): AccountController->actionLogin()
+#15 /Users/mnouh/Sites/mozi/framework/web/CController.php(309): CInlineAction->runWithParams()
+#16 /Users/mnouh/Sites/mozi/framework/web/CController.php(287): AccountController->runAction()
+#17 /Users/mnouh/Sites/mozi/framework/web/CController.php(266): AccountController->runActionWithFilters()
+#18 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(283): AccountController->run()
+#19 /Users/mnouh/Sites/mozi/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#20 /Users/mnouh/Sites/mozi/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /Users/mnouh/Sites/mozi/index.php(13): CWebApplication->run()
+REQUEST_URI=/~mnouh/mozi/index.php?r=account/login
+in /Users/mnouh/Sites/mozi/protected/models/User.php (34)
+in /Users/mnouh/Sites/mozi/protected/components/UserIdentity.php (18)
+in /Users/mnouh/Sites/mozi/protected/models/LoginForm.php (52)
