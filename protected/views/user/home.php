@@ -1,3 +1,6 @@
+<?php 
+$createTransUrl = Yii::app()->createUrl('transaction/create');
+?>
 <script type="text/javascript">
     //<![CDATA[
     
@@ -5,10 +8,10 @@
     
             $('#createTransaction').click(function(){
                 
-                
+                var createTransUrl = '<?php echo $createTransUrl; ?>';
                 jQuery.ajax({
                     'type':'POST',
-                    'url':'http://localhost/~mnouh/mozi/index.php?r=transaction/create',
+                    'url':createTransUrl,
                     'cache':false,
                     'data':$("form").serialize(),
                     'success':
@@ -141,7 +144,7 @@
                            <b><?php echo $user->firstName.' '.$user->lastName;?></b><br>
                            <img src="images/favicon.png" alt="mozi" width="15" height="15"> <?php echo $user->username;?>
                            
-                           <h3 style="margin-top: 1px; margin-bottom:0px;">$151.36 <a href="#"><small>cash out</small></a></h3>
+                           <h3 style="margin-top: 1px; margin-bottom:0px;"><?php echo $user->balance;?> <a href="#"><small>cash out</small></a></h3>
                        
                     
                        </div>

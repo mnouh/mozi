@@ -1,15 +1,17 @@
-
+<?php 
+$showEntryUrl = Yii::app()->createUrl('transaction/showEntry');
+?>
 <script type="text/javascript">
     //<![CDATA[
     
     $(document).ready(function() {
              
                 var transId = '<?php echo $model->id; ?>';
-                
+                var showEntryUrl = '<?php echo $showEntryUrl; ?>';
                 
                 jQuery.ajax({
                     'type':'POST',
-                    'url':'http://localhost/~mnouh/mozi/index.php?r=transaction/showEntry',
+                    'url':showEntryUrl,
                     'cache':false,
                     'data': {"transId": transId},
                     'success':

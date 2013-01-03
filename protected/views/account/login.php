@@ -45,7 +45,7 @@
       </p>
 
       <p id="login-button"><?php echo CHtml::submitButton('Log in', array('class' => 'btn btn-primary')); ?></p>
-      <p id="reset-pw"><a href="/users/password/new">Forgot your password?</a></p>
+      <p id="reset-pw"><a href="Yii::app()->createUrl('account/recovery');">Forgot your password?</a></p>
   </div><!-- /colspan -->
   <div class="colspan1">
     <span class="form-signin-divider">or</span>
