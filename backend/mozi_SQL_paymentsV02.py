@@ -66,8 +66,8 @@ class readDatabase():
         self.twitterHandles=[]
 
         for user in range(len(self.database)):
-            if self.database[user][-2]!= None:
-                self.twitterHandles.append(self.database[user][-2])
+            if self.database[user][22]!= None:
+                self.twitterHandles.append(self.database[user][22])
 
         return self.twitterHandles
 
@@ -83,7 +83,7 @@ class readDatabase():
         member=False
 
         for user in range(len(self.database)):
-            if userID == self.database[user][-2]: #twitter handle
+            if userID == self.database[user][22]: #twitter handle
                 member=True
 
         return member
@@ -107,7 +107,7 @@ class readDatabase():
         info=[]
 
         for user in range(len(self.database)):
-            if userID == self.database[user][-2]: #twitter handle
+            if userID == self.database[user][22]: #twitter handle
                 info=self.database[user]
 
         return info
@@ -161,6 +161,37 @@ class payDatabase:
         cur=self.con.cursor()
         cur.execute("UPDATE tbl_transaction SET paymentTracking=1 WHERE tweetId=%s", (tweetID))
 
+    def creditReceiver(self, userID, amount):
+        self.con=mdb.connect('mozime.com','mozi','team4625','mozi_main')
+        self.database=[]
+        cur=self.con.cursor()
+        cur.execute("SELECT balance FROM tbl_user WHERE id=%s", (userID))
+        balance=cur.fetchall()
+        balance=balance[0][0]
+        balance=balance+amount
+        print balance
+        self.con=mdb.connect('mozime.com','mozi','team4625','mozi_main')
+        self.database=[]
+        cur=self.con.cursor()
+        res=cur.execute("UPDATE tbl_user SET balance=%s WHERE id=%s", (balance,userID))
+        print res
+            
+
+    def debitSender(self, userID, amount):#
+        self.con=mdb.connect('mozime.com','mozi','team4625','mozi_main')
+        self.database=[]
+        cur=self.con.cursor()
+        cur.execute("SELECT balance FROM tbl_user WHERE id=%s", (userID))
+        balance=cur.fetchall()
+        balance=balance[0][0]
+        balance=balance-amount
+        print balance
+        self.con=mdb.connect('mozime.com','mozi','team4625','mozi_main')
+        self.database=[]
+        cur=self.con.cursor()
+        cur.execute("UPDATE tbl_user SET balance=%s WHERE id=%s", (balance,userID))
+        
+
     
 ##################################################################
 
@@ -169,6 +200,8 @@ print "Mozi Demonstration"
 databaseRead=readDatabase()
 userData=databaseRead.pullTwitterHandles()
 logger.debug("0-0 Pulling Twitter Handles from Database")
+
+print userData
 
 users=[]
 logger.debug("0-1 Indentifying Twitter IDs from Handles")
@@ -280,10 +313,17 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
 
 
                                 #record transaction on mozi
+                                
                                 payData=payDatabase()
                                 logger.info("pushing new pending transaction to tbl_transaction")
                                 trans=payData.newTransaction(senderInfo[0],recipientInfo[0],payAmountDeclared,payComments,tweetID,0)
                                 trans_id=trans[0][0]
+
+                                #debit/credit accounts
+                                
+            
+
+                                
                                 pusher.app_id=mozi_app_id
                                 pusher.key=mozi_api_key
                                 pusher.secret=mozi_secret
@@ -308,6 +348,7 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                 if tweet[u'entities'][u'hashtags'][hashtag][u'text'] == 'accept':
                     logger.info("Tweet with #accept request detected")
                     logger.debug("check to see if user is the user recieving the funds")
+                    print "accept detected"
                     if replyTweetID != None:
                         search=payDatabase()
                         transaction=search.searchTweetTransaction(replyTweetID)[0]
@@ -333,10 +374,12 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                 if transaction[10]==0: #check for pending, hasn't already been accepted
                                     logger.debug("transaction has not already been processed")
                                     logger.info("Transaction undergoing processing")
+
+                                    payAmountReceiver=transaction[4]
                                         
                                     payAmount=transaction[4]
                                     logger.info("User is sending "+str(payAmount))
-                                    payAmount=payAmount*1.029+.30
+                                    payAmount=payAmount*1.029+.30  #2.9%+.30 for transaction
                                     payAmount=math.ceil(payAmount*100)/100
                                     logger.info("Mozi is charging "+str(payAmount))
 
@@ -361,6 +404,16 @@ with tweetstream.FollowStream("myMozi","mozi2012",users) as stream:
                                     changeStatus=payDatabase()
                                     changeStatus.acceptTweetTransaction(replyTweetID)
                                     logger.debug("transaction changed from 0 to 1 .. accepted")
+
+                                    logger.debug("crediting receiver")
+                                    print "crediting receiver "+str(payAmountReceiver)
+                                    changeStatus.creditReceiver(payerInfo[0],payAmountReceiver)
+                                    
+                                    logger.debug("debiting sender")
+                                    print "debiting sender "+str(payAmount)
+                                    changeStatus.debitSender(senderInfo[0],payAmount)
+
+                                    logger.info("Balances Updated on Mozi Database")
 
 
                                     #push notification to mozime.com
