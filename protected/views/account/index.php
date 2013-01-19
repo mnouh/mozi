@@ -7,11 +7,11 @@ $this->pageTitle=Yii::app()->name;
 <div class="jumbotron masthead">
     <div class="container">
      
-      <div class="span 4" style="padding-top: 30px"> 
+      <div class="span 4" style="padding-top: 30px; z-index: 1"> 
            <img src="images/mozihandx.png" alt="Mozi Hand" style="position:relative; top: 0px; right: 0px">
       </div>  
       
-      <div class="span 8" style="padding-top: 75px">
+      <div class="span 8" style="padding-top: 75px; z-index:2">
           <h1>Gotta pay a friend?</h1>
           <h2>Send money with ease using</h2>
           <h2 style="position:relative; top: -10px; right: 0px">Facebook, Twitter, E-mail or SMS Text</h2>
