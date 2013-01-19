@@ -5,6 +5,7 @@ $this->pageTitle=Yii::app()->name;
 
 ?>
 <div class="jumbotron masthead">
+    <div class="row">
      
       <div class="span 4" style="padding-top: 30px"> 
            <img src="images/mozihandx.png" alt="Mozi Hand" style="position:relative; top: 0px; right: 0px">
@@ -20,7 +21,7 @@ $this->pageTitle=Yii::app()->name;
           <a href="<?php echo Yii::app()->createUrl('account/signup');?>" class="btn btn-success btn-large">Sign Up <small>(It's free!)</small></a>
           </div>
       </div>
- 
+    </div>
  
 </div>
 <div class="bs-docs-social">
