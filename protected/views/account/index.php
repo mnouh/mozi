@@ -5,13 +5,12 @@ $this->pageTitle=Yii::app()->name;
 
 ?>
 <div class="jumbotron masthead">
-  <div class="container">
      
       <div class="span 4" style="padding-top: 30px"> 
            <img src="images/mozihandx.png" alt="Mozi Hand" style="position:relative; top: 0px; right: 0px">
       </div>  
       
-      <div class="span 7" style="padding-top: 75px">
+      <div class="span 8" style="padding-top: 75px">
           <h1>Gotta pay a friend?</h1>
           <h2>Send money with ease using</h2>
           <h2 style="position:relative; top: -10px; right: 0px">Facebook, Twitter, E-mail or SMS Text</h2>
@@ -21,7 +20,7 @@ $this->pageTitle=Yii::app()->name;
           <a href="<?php echo Yii::app()->createUrl('account/signup');?>" class="btn btn-success btn-large">Sign Up <small>(It's free!)</small></a>
           </div>
       </div>
-  </div>
+ 
  
 </div>
 <div class="bs-docs-social">
