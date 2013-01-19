@@ -43,9 +43,6 @@ $this->pageTitle=Yii::app()->name;
   </div>
 </div>
     
-        <div id="space" style="padding-bottom:0px;">
-           &nbsp;  </div>
-    
     
  <div class="container" style="padding-bottom: 70px; padding-top: 40px; margin: 0px 0px 0px 0px; background: #00032a; /* Old browsers */
 background: -moz-linear-gradient(top,  #00032a 0%, #000042 15%, #000042 85%, #00032a 100%); /* FF3.6+ */
