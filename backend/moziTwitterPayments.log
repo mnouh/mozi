@@ -115,3 +115,36 @@
 2013-01-03 09:04:12,634 INFO Balanced Payments accepted transactions
 2013-01-03 09:04:13,262 INFO Balances Updated on Mozi Database
 2013-01-03 09:04:13,734 INFO Payment accepted into Balanced Payment account for Mozi
+2013-01-03 14:48:50,042 INFO Tweet with #Pay identified
+2013-01-03 14:48:50,460 INFO initiating pending transaction
+2013-01-03 14:48:51,141 INFO pushing new pending transaction to tbl_transaction
+2013-01-03 14:48:52,589 INFO payment is pending
+2013-01-03 14:49:05,562 INFO Tweet with #accept request detected
+2013-01-03 14:49:06,737 INFO Transaction undergoing processing
+2013-01-03 14:49:06,737 INFO User is sending 30.12
+2013-01-03 14:49:06,737 INFO Mozi is charging 31.3
+2013-01-03 14:49:08,630 INFO Balanced Payments accepted transactions
+2013-01-03 14:49:10,289 INFO Balances Updated on Mozi Database
+2013-01-03 14:49:10,934 INFO Payment accepted into Balanced Payment account for Mozi
+2013-01-03 14:53:54,302 INFO Tweet with #Pay identified
+2013-01-03 14:53:54,713 INFO initiating pending transaction
+2013-01-03 14:53:55,055 INFO pushing new pending transaction to tbl_transaction
+2013-01-03 14:53:55,566 INFO payment is pending
+2013-01-03 14:54:18,428 INFO Tweet with #accept request detected
+2013-01-03 14:54:20,153 INFO Transaction undergoing processing
+2013-01-03 14:54:20,153 INFO User is sending 70.0
+2013-01-03 14:54:20,153 INFO Mozi is charging 72.33
+2013-01-03 14:54:22,122 INFO Balanced Payments accepted transactions
+2013-01-03 14:54:23,710 INFO Balances Updated on Mozi Database
+2013-01-03 14:54:24,259 INFO Payment accepted into Balanced Payment account for Mozi
+2013-01-13 15:45:45,144 INFO Tweet with #Pay identified
+2013-01-13 15:45:45,453 INFO initiating pending transaction
+2013-01-13 15:45:45,680 INFO pushing new pending transaction to tbl_transaction
+2013-01-13 15:45:45,915 INFO payment is pending
+2013-01-13 15:46:15,197 INFO Tweet with #accept request detected
+2013-01-13 15:46:15,733 INFO Transaction undergoing processing
+2013-01-13 15:46:15,733 INFO User is sending 90.0
+2013-01-13 15:46:15,733 INFO Mozi is charging 92.91
+2013-01-13 15:46:18,197 INFO Balanced Payments accepted transactions
+2013-01-13 15:46:18,966 INFO Balances Updated on Mozi Database
+2013-01-13 15:46:19,520 INFO Payment accepted into Balanced Payment account for Mozi
