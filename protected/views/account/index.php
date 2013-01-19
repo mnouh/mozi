@@ -5,7 +5,7 @@ $this->pageTitle=Yii::app()->name;
 
 ?>
 <div class="jumbotron masthead">
-    <div class="container-fluid">
+    <div class="container">
      
       <div class="span 4" style="padding-top: 30px"> 
            <img src="images/mozihandx.png" alt="Mozi Hand" style="position:relative; top: 0px; right: 0px">
