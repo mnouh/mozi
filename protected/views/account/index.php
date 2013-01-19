@@ -12,7 +12,7 @@ $this->pageTitle=Yii::app()->name;
       </div>  
       
       <div class="span 8" style="padding-top: 75px;">
-          <h1>Gotta pay a friend?</h1>
+          <h1 style="position: relative; width: 10%">Gotta pay a friend?</h1>
           <h2>Send money with ease using</h2>
           <h2 style="position:relative; top: -10px; right: 0px">Facebook, Twitter, E-mail or SMS Text</h2>
         
@@ -47,37 +47,46 @@ $this->pageTitle=Yii::app()->name;
            &nbsp;  </div>
     
     
-    
- <div class="container">
+ <div class="container" style="padding-bottom: 70px; padding-top: 40px; margin: 0px 0px 0px 0px; background: #00032a; /* Old browsers */
+background: -moz-linear-gradient(top,  #00032a 0%, #000042 15%, #000042 85%, #00032a 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00032a), color-stop(15%,#000042), color-stop(85%,#000042), color-stop(100%,#00032a)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #00032a 0%,#000042 15%,#000042 85%,#00032a 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #00032a 0%,#000042 15%,#000042 85%,#00032a 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #00032a 0%,#000042 15%,#000042 85%,#00032a 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #00032a 0%,#000042 15%,#000042 85%,#00032a 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00032a', endColorstr='#00032a',GradientType=0 ); /* IE6-9 */
+
+    width: 100%; height: 100%;">
   <div class="marketing">
-    <h1 style="text-align: center; color: #222222">Welcome to Mozi.</h1>
-    <h3 style="text-align: center; color: #5a5a5a">The friend-to-friend payment network that's as <u>safe</u> as it <u>simple</u> to use.</h3>
+    <h1 style="text-align: center; color: white; padding-bottom: 30px">Welcome to Mozi.</h1>
+    <h3 style="text-align: center; color: white; padding-bottom: 30px">The peer-to-peer payment network that's as <u>safe</u> as it is <u>simple</u> to use.</h3>
     
      <div id="space" style="padding-bottom:25px;">
            &nbsp;  </div>
     
      <div class="row-fluid">
         <div class="span4" style="text-align: center; padding-left: 0px">
-            <img src="images/icon_social.png" style="padding-bottom: 13px; padding-top: 20px;">
-        <h2>Simple</h2>
-        <h5>Pay friends via social media, e-mail and text message with a single click.</h5>
+            <img src="images/icon_socialglow.png">
+        <h2 style="color: white">Simple</h2>
+        <h5 style="color: white">Pay friends via social media, e-mail and text message with a single click.</h5>
         </div>
         
         <div class="span4" style="text-align: center">
-        <img src="images/icon_secure.jpg">
-        <h2>Secure</h2>
-        <h5>Mozi uses industry-standard 256-bit SSL Encryption for <u>all</u> account accesses and transactions</h5>
+        <img src="images/icon_credcard.png">
+        <h2 style="color: white">Secure</h2>
+        <h5 style="color: white">Mozi uses industry-standard 256-bit SSL Encryption for <u>all</u> account accesses and transactions</h5>
         </div>
         
         <div class="span4" style="text-align: center">
-            <img src="images/icon_mobile.png" style="padding-bottom: 13px; padding-top: 20px;">
-            <h2>Mobile</h2>
-            <h5>Send money via computer, SMS text message and even Twitter!</h5>
+            <img src="images/icon_mobile1.png" style="padding-bottom: 1px;">
+            <h2 style="color: white">Mobile</h2>
+            <h5 style="color: white">Send money via computer, SMS text message and even Twitter!</h5>
         </div>
      </div>
     
       </div>
  </div>
+  
   
     
     <hr class="soften" style="margin-bottom: 0px; padding-bottom:0px;">
