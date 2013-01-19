@@ -12,7 +12,7 @@ $this->pageTitle=Yii::app()->name;
       </div>  
       
       <div class="span 8" style="padding-top: 75px;">
-          <h1 style="position: relative; width: 10%">Gotta pay a friend?</h1>
+          <h1 style="position: relative;">Gotta pay a friend?</h1>
           <h2>Send money with ease using</h2>
           <h2 style="position:relative; top: -10px; right: 0px">Facebook, Twitter, E-mail or SMS Text</h2>
         
